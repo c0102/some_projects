@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="light_style.css">
+<title>Iskra SG</title>
+</head>
+<body>
+<table id="t01">
+<tbody>
+<tr style="font-weight: bold; font-size: 200%; font-family: Verdana;text-align: center;">
+<td> <img src="iskra_logo1.jpg" alt="Iskra"></td>
+<td></td>
+<td>COUNTERS <span id="counter"></span></td>
+</tr>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+<tr style="height: 10px;"><td></td></tr>
+<tr>
+<td valign="top">
+<div class="vertical-menu">
+  <a href="/index.html">SG Status</a>  
+  <a href="/settings_general.html">SG Settings</a>
+  <a href="/measurements.html">Measurements</a>
+  <a href="/counters.html" class="active">Energy Counters</a>
+  <a href="/graph.html">Load Profile</a>
+  <a href="/energy_logger.html">Energy Recorder</a>
+  <a href="/devices.html">External Devices</a>
+  <a href="/bicom.html">Bicom control</a>    
+<!-- <a href="/edit">SG File Browser</a> -->
+  <a href="/update.html">SG Upgrade</a>
+</div>
+</td>
+<td></td>
+<td valign="top">
+<table id="t02">
+<tr>
+<select style="font-weight: bold; font-size: 200%; color: #009fa0;" id="dropdown_devices" onchange="updateData()">
+	
+</select>
+</table>
+<div id="no_counters_configured" style="display:none">
+<h2>Device not available<br>or configuration error</h2>
+</div>
+<div id="header" style="display:none">
+<table id="t02">
+<col width="200">
+<col width="400">
+<h2></h2>
+<td class="t02Cell">Device Model</td>
+<td style="font-size: 200%"><span id="model"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Device Serial Number</td>
+<td style="font-size: 200%"><span id="serial"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Device Modbus Address</td>
+<td style="font-size: 200%"><span id="modbus_address"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Device Description</td>
+<td style="font-size: 200%"><span id="description"></span></td>
+</tr>
+</tr>
+<tr>
+<td class="t02Cell">Device Location</td>
+<td style="font-size: 200%"><span id="location"></span></td>
+</tr>
+</table>
+</div>
+<div id="counters" style="display:none">
+<table id="t02">
+<col width="200">
+<col width="400">
+<th>Counters (Reset)    </th>
+<th>Counter Value</th>
+</tr>
+<tr>
+<td>Counter 1 - <span id="phase1"></span><br>
+<small>Tariff:<span id="tariff1"></span><br>
+Direction:</small></td>
+<td style="font-size: 200%"><span id="counter1"></span></td>
+</tr>
+<tr>
+<td>Counter 2 - <span id="phase2"></span><br>
+<small>Tariff:<span id="tariff2"></span><br>
+Direction:</small></td>
+<td style="font-size: 200%"><span id="counter2"></span></td>
+</tr>
+<tr>
+<td>Counter 3 - <span id="phase3"></span><br>
+<small>Tariff:<span id="tariff3"></span><br>
+Direction:</small></td>
+<td style="font-size: 200%"><span id="counter3"></span></td>
+</tr>
+<tr>
+<td>Counter 4 - <span id="phase4"></span><br>
+<small>Tariff:<span id="tariff4"></span><br>
+Direction:</small></td>
+<td style="font-size: 200%"><span id="counter4"></span></td>
+</tr>
+</table>
+</div>
+<div id="counters2" style="display:none">
+<table id="t02">
+<col width="200">
+<col width="400">
+<tr>
+<td>Counter 5 - <span id="phase5"></span><br>
+<small>Tariff:<span id="tariff5"></span><br>
+Direction:</small></td>
+<td style="font-size: 200%"><span id="counter5"></span></td>
+</tr>
+<tr>
+<td>Counter 6 - <span id="phase6"></span><br>
+<small>Tariff:<span id="tariff6"></span><br>
+Direction:</small></td>
+<td style="font-size: 200%"><span id="counter6"></span></td>
+</tr>
+<tr>
+<td>Counter 7 - <span id="phase7"></span><br>
+<small>Tariff:<span id="tariff7"></span><br>
+Direction:</small></td>
+<td style="font-size: 200%"><span id="counter7"></span></td>
+</tr>
+<tr>
+<td>Counter 8 - <span id="phase8"></span><br>
+<small>Tariff:<span id="tariff8"></span><br>
+Direction:</small></td>
+<td style="font-size: 200%"><span id="counter8"></span></td>
+</tr>
+</table>
+</div>
+<div id="non_resettable_counters" style="display:none">
+<table id="t02">
+<col width="200">
+<col width="400">
+<tr>
+<th>Counters (Non Reset)</th>
+<th>Counter value</th>
+</tr>
+<tr>
+<td>Counter 1 - <span id="phase1nr"></span><br>
+<small>Tariff:<span id="tariff1nr"></span><br>
+Direction:</small></td>
+<td style="font-size: 200%"><span id="counter1nr"></span></td>
+</tr>
+<tr>
+<td>Counter 2 - <span id="phase2nr"></span><br>
+<small>Tariff:<span id="tariff2nr"></span><br>
+Direction:</small></td>
+<td style="font-size: 200%"><span id="counter2nr"></span></td>
+</tr>
+<tr>
+<td>Counter 3 - <span id="phase3nr"></span><br>
+<small>Tariff:<span id="tariff3nr"></span><br>
+Direction:</small></td>
+<td style="font-size: 200%"><span id="counter3nr"></span></td>
+</tr>
+<tr>
+<td>Counter 4 - <span id="phase4nr"></span><br>
+<small>Tariff:<span id="tariff4nr"></span><br>
+Direction:</small></td>
+<td style="font-size: 200%"><span id="counter4nr"></span></td>
+</tr>
+</table>
+</div>
+<div id="footer" style="display:none">
+<table id="t02">
+<tr>
+<td>Local Time: </td>
+<td><span id="local_time"></span></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<script type="text/javascript">
+
+	function createSelect() {
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        	if (this.readyState == 4 && this.status == 200) {
+           	console.log("createSelect(): got Data:", this.responseText);
+           	var measData = JSON.parse(this.responseText);
+           
+           	var total = measData.total_meas;
+			
+			var i;
+			for(i = 0; i < total;i++)
+			{
+  				var z = document.createElement("option");
+  				z.setAttribute("value", i);
+  				var t = document.createTextNode("Device " + (i+1));
+  				z.appendChild(t);
+  				document.getElementById("dropdown_devices").appendChild(z);
+  			}
+  			document.getElementById("dropdown_devices").selectedIndex = "0";
+  			}
+  		}
+  		xhttp.open("GET", "/get_command?command=get_devices&time=" + new Date().getTime(), true);//add timestamp to avoid browser caching
+        xhttp.send();
+	}
+	
+    function updateData() {
+      var selected;
+      console.log("updateData()");     
+      
+      document.getElementById("no_counters_configured").style.display="block";
+      document.getElementById("counters").style.display="none";
+      document.getElementById("counters2").style.display="none";
+      document.getElementById("non_resettable_counters").style.display="none";
+      document.getElementById("footer").style.display="none";  
+      document.getElementById("header").style.display="none";
+      
+      selected = document.getElementById("dropdown_devices").value;
+    
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+           console.log("updateData(): got Data:", this.responseText);
+           var measData = JSON.parse(this.responseText);
+           document.getElementById("model").innerHTML = measData.header.model;
+           document.getElementById("serial").innerHTML = measData.header.serial_number;
+           document.getElementById("modbus_address").innerHTML = measData.header.modbus_addr;
+           document.getElementById("description").innerHTML = measData.header.description;
+           document.getElementById("location").innerHTML = measData.header.location;
+           document.getElementById("local_time").innerHTML = measData.header.local_time;
+           
+           console.log("non_resetable_counters:", measData.header.non_resetable_counters);
+           console.log("resetable_counters:", measData.header.resetable_counters);
+           
+           if( measData.header.model != 0)
+           {
+             document.getElementById("no_counters_configured").style.display="none";            
+           	 document.getElementById("header").style.display="block";
+           	 document.getElementById("footer").style.display="block";      		
+  		
+             if( measData.header.resetable_counters > 0)
+             {           	
+              document.getElementById("counters").style.display="block";            
+              document.getElementById("counter1").innerHTML = measData.counters.counter1;
+              document.getElementById("counter2").innerHTML = measData.counters.counter2;
+              document.getElementById("counter3").innerHTML = measData.counters.counter3;
+              document.getElementById("counter4").innerHTML = measData.counters.counter4;
+              document.getElementById("phase1").innerHTML = measData.settings.phase1;
+              document.getElementById("phase2").innerHTML = measData.settings.phase2;
+              document.getElementById("phase3").innerHTML = measData.settings.phase3;
+              document.getElementById("phase4").innerHTML = measData.settings.phase4;           
+              document.getElementById("tariff1").innerHTML = measData.settings.tariff1;
+              document.getElementById("tariff2").innerHTML = measData.settings.tariff2;
+              document.getElementById("tariff3").innerHTML = measData.settings.tariff3;
+              document.getElementById("tariff4").innerHTML = measData.settings.tariff4; 
+             }
+             if( measData.header.resetable_counters > 4)
+             {
+               document.getElementById("counters2").style.display="block";
+               document.getElementById("counter5").innerHTML = measData.counters.counter5;
+               document.getElementById("counter6").innerHTML = measData.counters.counter6;
+               document.getElementById("counter7").innerHTML = measData.counters.counter7;
+               document.getElementById("counter8").innerHTML = measData.counters.counter8;
+               document.getElementById("phase5").innerHTML = measData.settings.phase5;
+               document.getElementById("phase6").innerHTML = measData.settings.phase6;
+               document.getElementById("phase7").innerHTML = measData.settings.phase7;
+               document.getElementById("phase8").innerHTML = measData.settings.phase8;
+               document.getElementById("tariff5").innerHTML = measData.settings.tariff5;
+               document.getElementById("tariff6").innerHTML = measData.settings.tariff6;
+               document.getElementById("tariff7").innerHTML = measData.settings.tariff7;
+               document.getElementById("tariff8").innerHTML = measData.settings.tariff8;
+             }
+             if( measData.header.non_resetable_counters > 0)
+             {           	            
+              document.getElementById("non_resettable_counters").style.display="block";
+              document.getElementById("counter1nr").innerHTML = measData.counters.counter1nr;
+              document.getElementById("counter2nr").innerHTML = measData.counters.counter2nr;
+              document.getElementById("counter3nr").innerHTML = measData.counters.counter3nr;
+              document.getElementById("counter4nr").innerHTML = measData.counters.counter4nr;
+              document.getElementById("phase1nr").innerHTML = measData.settings.phase1nr;
+              document.getElementById("phase2nr").innerHTML = measData.settings.phase2nr;
+              document.getElementById("phase3nr").innerHTML = measData.settings.phase3nr;
+              document.getElementById("phase4nr").innerHTML = measData.settings.phase4nr;
+              document.getElementById("tariff1nr").innerHTML = measData.settings.tariff1nr;
+              document.getElementById("tariff2nr").innerHTML = measData.settings.tariff2nr;
+              document.getElementById("tariff3nr").innerHTML = measData.settings.tariff3nr;
+              document.getElementById("tariff4nr").innerHTML = measData.settings.tariff4nr; 
+             }            
+           }   
+         }                        
+          
+        }
+        console.log("Counter",selected);
+        var command = '/get_command?command=get_counters' + '&number=' + selected + '&time=' + new Date().getTime(); //add timestamp to avoid browser caching
+        console.log("Command:",command);
+        xhttp.open("GET", command, true);
+        xhttp.send();
+      }
+      
+      createSelect();
+      updateData();
+      window.setInterval(updateData, 60000); //update the counters every 60 seconds
+    </script>
+</body>
+</html>

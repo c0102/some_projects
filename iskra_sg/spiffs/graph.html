@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv='refresh' content='300'>
+<link rel="stylesheet" type="text/css" href="light_style.css">
+<title>Iskra SG</title>
+</head>
+<body>
+<table id="t01">
+<tbody>
+<tr style="font-weight: bold; font-size: 200%; font-family: Verdana;text-align: center;">
+<td> <img src="iskra_logo1.jpg" alt="Iskra"></td>
+<td></td>
+<td>Load Profile</td>
+</tr>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+<tr style="height: 10px;"><td></td></tr>
+<tr>
+<td valign="top">
+<div class="vertical-menu">
+  <a href="/index.html">SG Status</a>  
+  <a href="/settings_general.html">SG Settings</a>
+  <a href="/measurements.html">Measurements</a>
+  <a href="/counters.html">Energy Counters</a>
+  <a href="/graph.html" class="active">Load Profile</a>
+  <a href="/energy_logger.html">Energy Recorder</a>
+  <a href="/devices.html">External Devices</a>
+  <a href="/bicom.html">Bicom control</a>    
+<!-- <a href="/edit">SG File Browser</a> -->
+  <a href="/update.html">SG Upgrade</a>
+</div>
+</td>
+<td></td>
+<td valign="top">
+<table id="t02">
+<tr>
+<select style="font-weight: bold; font-size: 200%; color: #009fa0;" id="dropdown_devices" onchange="updateData()">
+	
+</select>
+</table>
+<br>
+<img id="svg" src="/graph/1.svg" alt="">  
+</td>
+</tbody>
+</table>
+<script type="text/javascript">
+   var active;
+   
+   function createSelect() {
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        	if (this.readyState == 4 && this.status == 200) {
+           	console.log("createSelect(): got Data:", this.responseText);
+           	var measData = JSON.parse(this.responseText);
+           
+           	var total = measData.total_meas;
+			
+			var i;
+			for(i = 0; i < total;i++)
+			{
+  				var z = document.createElement("option");
+  				z.setAttribute("value", i);
+  				var t = document.createTextNode("Device " + (i+1));
+  				z.appendChild(t);
+  				document.getElementById("dropdown_devices").appendChild(z);
+  			}
+  			document.getElementById("dropdown_devices").selectedIndex = "0";
+  			}
+  		}
+  		xhttp.open("GET", "/get_command?command=get_devices&time=" + new Date().getTime(), true);//add timestamp to avoid browser caching
+        xhttp.send();
+	}
+	
+   function updateData() {
+     console.log("updateData()");
+     selected = parseInt(document.getElementById("dropdown_devices").value) + 1;
+     var command = '/graph/' + selected + '.svg';
+     console.log(command);
+     document.getElementById('svg').src = command;
+   }
+   
+   createSelect();
+</script>      
+</body>
+</html>

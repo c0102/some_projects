@@ -1,0 +1,372 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="light_style.css">
+<title>Iskra SG</title>
+</head>
+<body>
+<table id="t01">
+<tbody>
+<tr style="font-weight: bold; font-size: 200%; font-family: Verdana;text-align: center;">
+<td> <img src="iskra_logo1.jpg" alt="Iskra"></td>
+<td></td>
+<td>MEASUREMENTS</td>
+</tr>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+<tr style="height: 10px;"><td></td></tr>
+<tr>
+<td valign="top">
+<div class="vertical-menu">
+  <a href="/index.html">SG Status</a>  
+  <a href="/settings_general.html">SG Settings</a>
+  <a href="/measurements.html" class="active">Measurements</a>
+  <a href="/counters.html">Energy Counters</a>
+  <a href="/graph.html">Load Profile</a>
+  <a href="/energy_logger.html">Energy Recorder</a>
+  <a href="/devices.html">External Devices</a>
+  <a href="/bicom.html">Bicom control</a>    
+<!-- <a href="/edit">SG File Browser</a> -->
+  <a href="/update.html">SG Upgrade</a>
+</div>
+</td>
+<td></td>
+<td valign="top">
+<table id="t02">
+<tr>
+<select style="font-weight: bold; font-size: 200%; color: #009fa0;" id="dropdown_devices" onchange="updateData()">
+	
+</select>
+</table>
+<div id="no_measurements_configured" style="display:none">
+<h2>Device not available<br>or configuration error</h2>
+</div>
+<div id="measurements" style="display:none">
+<table id="t02">
+<col width="230">
+<col width="300">
+<tr>
+<h2></h2>
+<td class="t02Cell">Device Model</td>
+<td><span id="model"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Device Serial Number</td>
+<td><span id="serial"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Device Modbus Address</td>
+<td><span id="modbus_address"></span></td>
+</tr>
+<td class="t02Cell">Device Description</td>
+<td><span id="description"></span></td>
+</tr>
+</tr>
+<tr>
+<td class="t02Cell">Device Location</td>
+<td><span id="location"></span></td>
+</tr>
+<tr>
+<th>Phase 1</th>
+<th>Value</th>
+</tr>
+<tr>
+<td class="t02Cell">U1</td>
+<td class="t02Cell"><span id="U1"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">I1</td>
+<td class="t02Cell"><span id="I1"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Real Power</td>
+<td class="t02Cell"><span id="P1"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Reactive Power</td>
+<td class="t02Cell"><span id="Q1"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Apparent Power</td>
+<td class="t02Cell"><span id="S1"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Power Factor</td>
+<td class="t02Cell"><span id="PF1"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Power Angle</td>
+<td class="t02Cell"><span id="PA1"></span>&#176;</td>
+</tr>
+<tr>
+<td class="t02Cell">THD-Up</td>
+<td class="t02Cell"><span id="THD-Up1"></span>%</td>
+</tr>
+<tr>
+<td class="t02Cell">THD-I</td>
+<td class="t02Cell"><span id="THD-I1"></span>%</td>
+</tr>
+</table>
+<div id="phases2-3" style="display:none">
+<table id="t02">
+<col width="230">
+<col width="300">
+<tr>
+<th>Phase 2</th>
+<th>Value</th>
+</tr>
+<tr>
+<td class="t02Cell">U2</td>
+<td class="t02Cell"><span id="U2"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">I2</td>
+<td class="t02Cell"><span id="I2"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Real Power</td>
+<td class="t02Cell"><span id="P2"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Reactive Power</td>
+<td class="t02Cell"><span id="Q2"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Apparent Power</td>
+<td class="t02Cell"><span id="S2"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Power Factor</td>
+<td class="t02Cell"><span id="PF2"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Power Angle</td>
+<td class="t02Cell"><span id="PA2"></span>&#176;</td>
+</tr>
+<tr>
+<td class="t02Cell">THD-Up</td>
+<td class="t02Cell"><span id="THD-Up2"></span>%</td>
+</tr>
+<tr>
+<td class="t02Cell">THD-I</td>
+<td class="t02Cell"><span id="THD-I2"></span>%</td>
+</tr>
+<tr>
+<th>Phase 3</th>
+<th>Value</th>
+</tr>
+<tr>
+<td class="t02Cell">U3<br>
+<td class="t02Cell"><span id="U3"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">I3</td>
+<td class="t02Cell"><span id="I3"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Real Power</td>
+<td class="t02Cell"><span id="P3"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Reactive Power</td>
+<td class="t02Cell"><span id="Q3"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Apparent Power</td>
+<td class="t02Cell"><span id="S3"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Power Factor</td>
+<td class="t02Cell"><span id="PF3"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Power Angle</td>
+<td class="t02Cell"><span id="PA3"></span>&#176;</td>
+</tr>
+<tr>
+<td class="t02Cell">THD-Up</td>
+<td class="t02Cell"><span id="THD-Up3"></span>%</td>
+</tr>
+<tr>
+<td class="t02Cell">THD-I</td>
+<td class="t02Cell"><span id="THD-I3"></span>%</td>
+</tr>
+<tr>
+<th>Total</th>
+<th>Value</th>
+</tr>
+<tr>
+<td class="t02Cell">Total Real Power</td>
+<td class="t02Cell"><span id="P0"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Total Reactive Power</td>
+<td class="t02Cell"><span id="Q0"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Total Apparent Power</td>
+<td class="t02Cell"><span id="S0"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Total Power Factor</td>
+<td class="t02Cell"><span id="PF0"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Total Power Angle</td>
+<td class="t02Cell"><span id="PA0"></span>&#176;</td>
+</tr>
+</table>
+</div>
+<table id="t02">
+<col width="230">
+<col width="300">
+<tr>
+<th>Others</th>
+<th>Value</th>
+</tr>
+<tr>
+<td class="t02Cell">Frequency</td>
+<td class="t02Cell"><span id="frequency"></span> Hz</td>
+</tr>
+<tr>
+<td class="t02Cell">Internal Temperature</td>
+<td class="t02Cell"><span id="Tint"></span>&#176;C</td>
+</tr>
+<tr>
+<td class="t02Cell">Active Tariff</td>
+<td class="t02Cell"><span id="tariff"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Local Time</td>
+<td class="t02Cell"><span id="local_time"></span></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<script type="text/javascript">
+   var active;
+   
+   function createSelect() {
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        	if (this.readyState == 4 && this.status == 200) {
+           	console.log("createSelect(): got Data:", this.responseText);
+           	var measData = JSON.parse(this.responseText);
+           
+           	var total = measData.total_meas;
+			
+			var i;
+			for(i = 0; i < total;i++)
+			{
+  				var z = document.createElement("option");
+  				z.setAttribute("value", i);
+  				var t = document.createTextNode("Device " + (i+1));
+  				z.appendChild(t);
+  				document.getElementById("dropdown_devices").appendChild(z);
+  			}
+  			document.getElementById("dropdown_devices").selectedIndex = "0";
+  			}
+  		}
+  		xhttp.open("GET", "/get_command?command=get_devices&time=" + new Date().getTime(), true);//add timestamp to avoid browser caching
+        xhttp.send();
+	}
+	
+   function updateData() {
+     console.log("updateData()");
+      
+	  selected = document.getElementById("dropdown_devices").value;
+      console.log("Counter",selected);
+      
+      if(active == 0)
+      {
+      document.getElementById("no_measurements_configured").style.display="block";
+      document.getElementById("measurements").style.display="none";
+      document.getElementById("phases2-3").style.display="none";
+      }
+      
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+           console.log("updateData(): got Data:", this.responseText);           
+           var measData = JSON.parse(this.responseText);
+           
+           document.getElementById("local_time").innerHTML = measData.header.local_time;
+           document.getElementById("model").innerHTML = measData.header.model;
+           document.getElementById("serial").innerHTML = measData.header.serial_number;
+           document.getElementById("description").innerHTML = measData.header.description;
+           document.getElementById("location").innerHTML = measData.header.location;
+           document.getElementById("modbus_address").innerHTML = measData.header.modbus_addr;
+           
+           if( measData.header.model != 0)
+           {
+           active = 1;           
+           document.getElementById("measurements").style.display="block";
+           document.getElementById("no_measurements_configured").style.display="none";           
+           document.getElementById("U1").innerHTML = measData.measurements.U1;
+           document.getElementById("I1").innerHTML = measData.measurements.I1;
+           document.getElementById("P1").innerHTML = measData.measurements.P1;
+           document.getElementById("Q1").innerHTML = measData.measurements.Q1;
+           document.getElementById("S1").innerHTML = measData.measurements.S1;
+           document.getElementById("PF1").innerHTML = measData.measurements.PF1;
+           document.getElementById("PA1").innerHTML = measData.measurements.PA1;
+           document.getElementById("THD-Up1").innerHTML = measData.measurements.THDUp1;
+           document.getElementById("THD-I1").innerHTML = measData.measurements.THDI1;
+           if(measData.header.phases == 3)
+           {
+           console.log("3 phase");
+           document.getElementById("phases2-3").style.display="block";
+           document.getElementById("U2").innerHTML = measData.measurements.U2;
+           document.getElementById("I2").innerHTML = measData.measurements.I2;
+           document.getElementById("P2").innerHTML = measData.measurements.P2;
+           document.getElementById("Q2").innerHTML = measData.measurements.Q2;
+           document.getElementById("S2").innerHTML = measData.measurements.S2;
+           document.getElementById("PF2").innerHTML = measData.measurements.PF2;
+           document.getElementById("PA2").innerHTML = measData.measurements.PA2;
+           document.getElementById("THD-Up2").innerHTML = measData.measurements.THDUp2;
+           document.getElementById("THD-I2").innerHTML = measData.measurements.THDI2;
+           document.getElementById("U3").innerHTML = measData.measurements.U3;
+           document.getElementById("I3").innerHTML = measData.measurements.I3;
+           document.getElementById("P3").innerHTML = measData.measurements.P3;
+           document.getElementById("Q3").innerHTML = measData.measurements.Q3;
+           document.getElementById("S3").innerHTML = measData.measurements.S3;
+           document.getElementById("PF3").innerHTML = measData.measurements.PF3;
+           document.getElementById("PA3").innerHTML = measData.measurements.PA3;
+           document.getElementById("THD-Up3").innerHTML = measData.measurements.THDUp3;
+           document.getElementById("THD-I3").innerHTML = measData.measurements.THDI3;
+           document.getElementById("P0").innerHTML = measData.measurements.P0;
+           document.getElementById("Q0").innerHTML = measData.measurements.Q0;
+           document.getElementById("S0").innerHTML = measData.measurements.S0;
+           document.getElementById("PF0").innerHTML = measData.measurements.PF0;
+           document.getElementById("PA0").innerHTML = measData.measurements.PA0;
+           }
+           else
+           {
+           	 console.log("1 phase");
+             document.getElementById("phases2-3").style.display="none";
+           }
+           document.getElementById("frequency").innerHTML = measData.measurements.frequency;
+           document.getElementById("Tint").innerHTML = measData.measurements.Tint;           
+           document.getElementById("tariff").innerHTML = measData.measurements.tariff;                       
+          }
+          else 
+            active = 0;
+          
+        }        
+        };
+        var command = '/get_command?command=get_measurements' + '&number=' + selected + '&time=' + new Date().getTime();
+        xhttp.open("GET", command, true);//add timestamp to avoid browser caching
+        xhttp.send();
+      }
+      
+      createSelect();
+      updateData();
+      window.setInterval(updateData, 5000); //update data every 5 seconds
+    </script>
+</body>
+</html>

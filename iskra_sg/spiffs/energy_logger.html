@@ -1,0 +1,388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="light_style.css">
+<title>Iskra SG</title>
+</head>
+<body>
+<div id="loader" class="loader" style="display:block" ></div>
+<table id="t01">
+<tbody>
+<tr style="font-weight: bold; font-size: 200%; font-family: Verdana;text-align: center;">
+<td> <img src="iskra_logo1.jpg" alt="Iskra"></td>
+<td></td>
+<td>SG Energy Recorder</td>
+</tr>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+<tr style="height: 10px;"><td></td></tr>
+<tr>
+<td valign="top">
+<div class="vertical-menu">
+  <a href="/index.html">SG Status</a>  
+  <a href="/settings_general.html">SG Settings</a>
+  <a href="/measurements.html">Measurements</a>
+  <a href="/counters.html">Energy Counters</a>
+  <a href="/graph.html">Load Profile</a>
+  <a href="/energy_logger.html" class="active">Energy Recorder</a>
+  <a href="/devices.html">External Devices</a>
+  <a href="/bicom.html">Bicom control</a>    
+<!-- <a href="/edit">SG File Browser</a> -->
+  <a href="/update.html">SG Upgrade</a>
+</div>
+</td>
+<td></td>
+<td valign="top">
+<table id="t02">
+<tbody>
+<tr>
+<select style="font-weight: bold; font-size: 200%; color: #009fa0;" id="dropdown_devices" onchange="GenerateTable()">
+</select>
+<br><br>
+<div id="energy_log" style="display:block">
+</div>
+<br>
+<div id="download_button" style="display:none">
+<button class="button button1" onclick="download_table_as_csv('t02')">Download as CSV</button>
+</div>
+</tr>
+</tbody>
+</table>
+<script type="text/javascript">
+	
+	function createSelect() {
+		var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        	if (this.readyState == 4 && this.status == 200) {
+           		console.log("createSelect(): got Data:", this.responseText);
+           		var measData = JSON.parse(this.responseText);           				
+				var i;
+				var total = parseInt(measData.settings.eeprom_size/16);
+				var recorder_enable = [measData.settings.energy_log_1, measData.settings.energy_log_2, measData.settings.energy_log_3, measData.settings.energy_log_4]; 
+				for(i = 0; i < 4;i++)
+				{
+					if(recorder_enable[i] == 0)
+						continue;
+  					var z = document.createElement("option");
+  					z.setAttribute("value", i);
+  					var t = document.createTextNode("Recorder " + (i+1));
+  					z.appendChild(t);
+  					document.getElementById("dropdown_devices").appendChild(z);
+  				}
+  				document.getElementById("dropdown_devices").selectedIndex = "0";
+  			}
+  		}
+  		xhttp.open("GET", "/get_command?command=get_settings&time=" + new Date().getTime(), true);//add timestamp to avoid browser caching
+        xhttp.send();
+	}
+	
+	// Quick and simple export target #table_id into a csv
+	function download_table_as_csv(table_id, separator = ',') {
+    // Select rows from table_id
+    var rows = document.querySelectorAll('table#' + table_id + ' tr');
+    // Construct csv
+    var csv = [];
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll('td, th');
+        for (var j = 0; j < cols.length; j++) {
+            // Clean innertext to remove multiple spaces and jumpline (break csv)
+            var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+            // Escape double-quote with double-double-quote (see https://stackoverflow.com/questions/17808511/properly-escape-a-double-quote-in-csv)
+            data = data.replace(/"/g, '""');
+            // Push escaped string
+            row.push('"' + data + '"');
+        }
+        csv.push(row.join(separator));
+    }
+    var csv_string = csv.join('\n');
+    // Download it
+    var filename = 'export_' + table_id + '_' + new Date().toLocaleDateString() + '.csv';
+    var link = document.createElement('a');
+    link.style.display = 'none';
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+     
+      function GenerateTable() {
+      
+      var months = ["January", "February", "March", "April", "May", "June", "July",
+         "August", "September", "October", "November", "December"];
+
+	  document.getElementById("energy_log").style.display = 'none'; 
+	  document.getElementById("download_button").style.display = 'none';
+	  document.getElementById("loader").style.display = 'block';        
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        console.log("updateData(): got Data:", this.responseText);  
+        
+        document.getElementById("loader").style.display = 'none';         
+        var measData = JSON.parse(this.responseText); 
+        
+        //counter array
+        var counter = new Array();
+        counter.push(["Counter", measData.counter_number, ""]);    
+        
+        //status array
+        var status = new Array();
+        status.push(["Name", "Date", "Value"]);        
+        status.push(["Now", measData.local_time, measData.current_value + " " + measData.unit]);
+        status.push(["Last record", measData.last_record_time, measData.days[measData.day_position] + " " + measData.unit]);
+        //status.push(["Number of samples", measData.day_samples, ""]);
+        //status.push(["Position", measData.day_position, ""]);           
+        
+        //Day Energy header
+        var energy_header = new Array();
+        energy_header.push(["Day", "Value", "Diff"]);//day header
+        energy_header.push(["Month", "Value", "Diff"]);//month header
+        energy_header.push(["Year", "Value", "Diff"]);//year header
+ 
+        //Create a HTML Table element.
+        var table = document.createElement("TABLE");
+        table.border = "1";
+        table.setAttribute("id", "t02");
+ 
+        //Get the count of columns.
+        var columnCount = energy_header[0].length;
+        
+        //Add counter number row.
+        var row = table.insertRow(-1);
+        for (var i = 0; i < columnCount; i++) {
+            var cell = row.insertCell(-1);
+                cell.setAttribute("class", "t02Cell");
+                cell.innerHTML = counter[0][i];
+        }
+        table.insertRow(-1);       
+        
+        //Add the status header row.
+        row = table.insertRow(-1);
+        for (var i = 0; i < columnCount; i++) {
+            var headerCell = document.createElement("TH");
+            headerCell.innerHTML = status[0][i];
+            row.appendChild(headerCell);
+        }
+        
+        //Add the status data rows.
+        for (var i = 1; i < status.length; i++) {
+            row = table.insertRow(-1);
+            for (var j = 0; j < columnCount; j++) {
+                var cell = row.insertCell(-1);
+                if( i == 1 )
+                	cell.setAttribute('style','color:blue;text-align:right');
+                else if( j == 0)
+                	cell.setAttribute('style', 'text-align:right');
+                cell.setAttribute("class", "t02Cell");
+                if(measData.day_samples || measData.month_samples || measData.year_samples)
+                	cell.innerHTML = status[i][j];
+            }
+        } 
+        
+        //Add the year energy header row.
+        var row = table.insertRow(-1);
+        for (var i = 0; i < columnCount; i++) {
+            var headerCell = document.createElement("TH");
+            headerCell.innerHTML = energy_header[2][i];
+            row.appendChild(headerCell);
+        }
+        
+        //Add the year energy data rows.
+        console.log("year samples:", measData.year_samples);
+        for (var i = 0; i < measData.year_samples + 1; i++) {
+        	var pos = measData.year_position - i + 1;  
+             if(pos < 0)
+               pos += measData.year_samples;
+            
+            row = table.insertRow(-1);
+            
+            var cell = row.insertCell(-1);
+            cell.setAttribute('style','text-align:right');
+            var d = new Date(measData.last_record_timestamp*1000);
+            if(i == 0)//current year
+            {
+            	cell.setAttribute('style','color:blue;text-align:right');
+            	cell.innerHTML = d.getFullYear();
+            }
+            else
+            	cell.innerHTML = (d.getFullYear()-i);
+            cell = row.insertCell(-1);
+            cell.setAttribute("class", "t02Cell");
+            if(i == 0)//current value
+            {
+            	cell.setAttribute('style','color:blue');
+            	cell.innerHTML = measData.current_value + " " + measData.unit;//current value
+            }
+            else 	
+            	cell.innerHTML = measData.years[pos] + " " + measData.unit;
+            if(i < measData.year_samples)//diff
+            {
+            	var x;
+            	cell = row.insertCell(-1);            	
+            	cell.setAttribute("class", "t02Cell");
+            	if(pos == 0)
+             	  diff_pos = measData.year_samples - 1;
+             	else
+             	  diff_pos = pos -1;
+             	  
+            	if(i == 0)//current diff
+            	{
+            		cell.setAttribute('style','color:blue');
+            		x = measData.current_value - measData.years[diff_pos];
+            	}   
+            	else
+            	{
+            		x = measData.years[pos] - measData.years[diff_pos];
+            	}
+            	cell.innerHTML = x.toFixed(1) + " " + measData.unit;
+            }            
+        }
+        
+        //Add the month energy header row.
+        var row = table.insertRow(-1);
+        for (var i = 0; i < columnCount; i++) {
+            var headerCell = document.createElement("TH");
+            headerCell.innerHTML = energy_header[1][i];
+            row.appendChild(headerCell);
+        } 
+        
+        //Add the month energy data rows.
+        console.log("month samples:", measData.month_samples);
+        for (var i = 0; i < measData.month_samples + 1; i++) {
+        	var pos = measData.month_position - i + 1;  
+             if(pos < 0)
+               pos += measData.month_samples;
+               
+            row = table.insertRow(-1);
+            
+            var cell = row.insertCell(-1);
+            cell.setAttribute('style','text-align:right');
+            var d = new Date(measData.last_record_timestamp*1000);
+            var month = d.getMonth() - i;
+            //if(i == 0)//current month
+            	//month++;
+            var year = d.getFullYear();
+            while(month < 0)
+            {
+            	month = month + 12;
+            	year--;
+            }
+            
+            if(i == 0)//current value
+            	cell.setAttribute('style','color:blue;text-align:right');
+            cell.innerHTML = months[month] + " " + year;
+            cell = row.insertCell(-1);
+            cell.setAttribute("class", "t02Cell");          
+            
+            if(i == 0)//current value
+            {
+            	cell.setAttribute('style','color:blue');
+            	cell.innerHTML = measData.current_value + " " + measData.unit;//current value
+            }
+            else
+            	cell.innerHTML = measData.months[pos] + " " + measData.unit;
+            
+            if(i < measData.month_samples)
+            {
+            	var x;
+            	cell = row.insertCell(-1);
+            	cell.setAttribute("class", "t02Cell");
+            	if(pos == 0)
+             	  diff_pos = measData.month_samples - 1;
+             	else
+             	  diff_pos = pos -1;
+            
+            	if(i == 0)//current diff
+            	{
+            		cell.setAttribute('style','color:blue');
+            		x = measData.current_value - measData.months[diff_pos];
+            	}   
+            	else
+            		x = measData.months[pos] - measData.months[diff_pos];
+            	cell.innerHTML = x.toFixed(1) + " " + measData.unit;
+            }            
+        }       
+ 
+        //Add the day energy header row.
+        var row = table.insertRow(-1);
+        for (var i = 0; i < columnCount; i++) {
+            var headerCell = document.createElement("TH");
+            headerCell.innerHTML = energy_header[0][i];
+            row.appendChild(headerCell);
+        }        
+               
+        //Add the day energy data rows.
+        console.log("day samples:", measData.day_samples);
+        for (var i = 0; i < measData.day_samples + 1; i++) {
+        	var pos = measData.day_position - i + 1;  
+             if(pos < 0)
+               pos += measData.day_samples;
+               
+            row = table.insertRow(-1);
+            
+            var cell = row.insertCell(-1);
+            cell.setAttribute('style','text-align:right');
+            var d = new Date((measData.last_record_timestamp - ((i) * 3600 * 24 ))*1000);
+            if(i == 0)//current value
+            	cell.setAttribute('style','color:blue;text-align:right');
+            cell.innerHTML = d.getDate() + "." + (d.getMonth()+1) + "." + d.getFullYear();
+            cell = row.insertCell(-1);
+            cell.setAttribute("class", "t02Cell");
+            if(i == 0)//current value
+            {
+            	cell.setAttribute('style','color:blue');
+            	cell.innerHTML = measData.current_value + " " + measData.unit;//current value
+            }
+            else
+            	cell.innerHTML = measData.days[pos] + " " + measData.unit;//from array
+             
+            if(i < measData.day_samples)
+            {
+            	var x;
+            	var diff_pos;
+            	cell = row.insertCell(-1);
+            	cell.setAttribute("class", "t02Cell");
+            	if(pos == 0)
+             	  diff_pos = measData.day_samples - 1;
+             	else
+             	  diff_pos = pos -1;
+             	
+            	if(i == 0)//current diff
+            	{
+            		cell.setAttribute('style','color:blue');
+            		x = measData.current_value - measData.days[diff_pos];
+            	}   
+            	else
+            		x = measData.days[pos] - measData.days[diff_pos];            	
+            	
+            	cell.innerHTML = x.toFixed(1) + " " + measData.unit;
+            }            
+        }
+ 
+        var dvTable = document.getElementById("energy_log");
+        dvTable.innerHTML = "";
+        dvTable.appendChild(table);
+        
+        document.getElementById("energy_log").style.display = 'block';
+        document.getElementById("download_button").style.display = 'block';
+    }   
+    }
+    	selected = document.getElementById("dropdown_devices").value;
+      	console.log("Counter",selected);
+    	var command = '/get_command?command=get_energy_log' + '&recorder=' + selected + '&time=' + new Date().getTime();
+        xhttp.open("GET", command, true);//add timestamp to avoid browser caching
+        xhttp.send();
+    }                             
+      
+      //updateData();
+      createSelect();
+      GenerateTable();
+      window.setInterval(GenerateTable, 60000); //update status every 60 seconds           
+    </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">  
+  <link rel="stylesheet" type="text/css" href="light_style.css">
+  <title>Iskra SG</title>
+  </head>     
+<body>    
+<table id="t01">
+<tbody>
+<tr style="font-weight: bold; font-size: 200%; font-family: Verdana;text-align: center;">
+<td> <img src="iskra_logo1.jpg" alt="Iskra"></td>
+<td></td>
+<td>SG UPGRADE</td>
+</tr>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+      <tr style="height: 10px;"><td></td></tr>
+<tr>
+<td valign="top">
+<div class="vertical-menu">
+  <a href="/index.html">SG Status</a>  
+  <a href="/settings_general.html">SG Settings</a>
+  <a href="/measurements.html">Measurements</a>
+  <a href="/counters.html">Energy Counters</a>
+  <a href="/graph.html">Load Profile</a>
+  <a href="/energy_logger.html">Energy Recorder</a>
+  <a href="/devices.html">External Devices</a>
+  <a href="/bicom.html">Bicom control</a>    
+<!-- <a href="/edit">SG File Browser</a> -->
+  <a href="/update.html" class="active">SG Upgrade</a>
+</div>
+</td>
+<td></td>
+<td valign="top">
+<table id="t02">
+<tr>
+<fieldset>
+     <legend>Certificate Manager</legend>	
+    <button onclick="location.href='/cert'" type="button"> Certificate Manager</button>
+   </fieldset>
+</tr>
+<br>
+<tr>
+    <form action="/get_command">    
+     <fieldset>
+     <legend>Upgrade settings</legend>
+      <br>Upgrade file URL:
+      <br>      
+      <input type="text" name="upgrade_url" id="upgrade_url" size="60" maxlength="59">            
+      <br>             
+      <br>         
+      <label for="server_certificate">Select Server Certificate</label>
+      <br>           
+      <select id="server_certificate" name="server_certificate"></select>                         
+      </fieldset>      
+      <br>
+      <input type="hidden" name="command" id="command" value ="ota_upgrade">
+      <input type="submit" value="Start Upgrade" >                               
+    </form>        
+</tr>
+</table>
+</td>
+</tbody>
+</table>
+<script>    
+    function updateData() {
+        console.log("updateData()");
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+           console.log("updateData(): got Data:", this.responseText);                        
+           var dataArr = JSON.parse(this.responseText);                     
+           let dropdown = document.getElementById('server_certificate');
+			dropdown.length = 0;
+			let defaultOption = document.createElement('option');
+			defaultOption.text = 'Choose Certificate from Filesystem';
+			dropdown.add(defaultOption);
+			dropdown.selectedIndex = 0;
+
+			let option;
+    		for (let i = 0; i < dataArr.files.length; i++) {
+    			console.log("array:", dataArr.files[i]); 
+      			option = document.createElement('option');
+      			option.text = dataArr.files[i];
+      			option.value = dataArr.files[i];
+      			dropdown.add(option);
+    		}                          
+        }
+      };
+      
+      xhttp.open("GET", "/get_command?command=get_cert_files&time=" + new Date().getTime(), true);//add timestamp to avoid browser caching
+      xhttp.send();                        
+    }            
+      
+    setTimeout(updateData, 100); //updateData();    
+
+</script>
+</body>
+</html>

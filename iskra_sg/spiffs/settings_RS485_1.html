@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="light_style.css">
+<title>Iskra SG
+</title>
+</head>
+<body>
+<iframe name="hiddenFrame" style="width:0;height:0;border:0; border:none; display:none;"></iframe>
+<div id="loader" class="loader" style="display:block" ></div>
+<table id="t01">
+<tbody>
+<tr style="font-weight: bold; font-size: 200%; font-family: Verdana;text-align: center;">
+<td>
+<img src="iskra_logo1.jpg" alt="Iskra"></td>
+<td></td>
+<td>SG SETTINGS</td>
+</tr>
+<tr>
+<th>
+</th>
+<th>
+</th>
+<th>
+</th>
+</tr>
+<tr style="height: 10px;"><td></td></tr>
+<tr>
+<td valign="top">
+<div class="vertical-menu">
+<a href="/index.html">SG Status</a> 			
+<a href="/settings_general.html" class="active">SG Settings</a>
+<a href="/measurements.html">Measurements</a>
+<a href="/counters.html">Energy Counters</a>
+<a href="/graph.html">Load Profile</a>
+<a href="/energy_logger.html">Energy Recorder</a>
+<a href="/devices.html">External Devices</a>
+<a href="/bicom.html">Bicom control</a>    
+<!-- <a href="/edit">SG File Browser</a> -->
+<a href="/update.html">SG Upgrade</a>
+</div>
+</td>
+<td></td>
+<td valign="top">        
+<table id="t02">
+<tr>
+<div class="topnav">
+<a href="/settings_general.html">General</a>
+<a href="settings_communication.html">Communication</a>
+<a href="settings_IR.html">IR Devices</a>
+<a class="active" href="settings_RS485.html">RS485 Devices</a>
+</div>
+<h2></h2>
+<form action="/get_command" target="hiddenFrame">
+<div style="display:none;" id="devicesDiv" >
+<fieldset>
+<input type="hidden" name="command" id="command" value ="set_settings">
+<legend>RS 485 Device 9</legend>
+<br>RS 485 Device 9 Type:
+<select name="rs485_type_9" id="rs485_type_9">
+      <option value="0">Not Connected</option>
+      <option value="1">Other Modbus Device</option>
+      <option value="2">Energy Meter</option>
+      <option value="3">Bistable Switch</option>
+      <option value="4">PQ Meter</option>
+</select>
+<br>
+<br>RS 485 Device 9 Modbus Address:
+<input type="text" name="rs485_addr_9" id="rs485_addr_9" size="5" maxlength="3"> <br>
+<br>RS 485 Device 9 Push/Publish:
+<select name="rs485_pushlnk9" id="rs485_pushlnk9">
+      <option value="0">No Push/Publish</option>
+      <option value="1">Link 1</option>
+      <option value="2">Link 2</option>
+      <option value="3">Link 1 & Link 2</option>
+</select>
+<br>
+<br>RS 485 Device 9 Push/Publish Interval:
+<input type="text" name="rs485_pushint9" id="rs485_pushint9" size="5" maxlength="3"> <br>
+<br>RS 485 Device 9 Description:
+<input type="text" name="rs485_desc_9" id="rs485_desc_9" size="20" maxlength="19"> <br>                  
+</fieldset>
+
+<br>
+<fieldset>
+<legend>RS 485 Device 10</legend>
+<br>RS 485 Device 10 Type:
+<select name="rs485_type_10" id="rs485_type_10">
+      <option value="0">Not Connected</option>
+      <option value="1">Other Modbus Device</option>
+      <option value="2">Energy Meter</option>
+      <option value="3">Bistable Switch</option>
+      <option value="4">PQ Meter</option>
+</select>
+<br>
+<br>RS 485 Device 10 Modbus Address:
+<input type="text" name="rs485_addr_10" id="rs485_addr_10" size="5" maxlength="3"> <br>
+<br>RS 485 Device 10 Push/Publish:
+<select name="rs485_pushlnk10" id="rs485_pushlnk10">
+      <option value="0">No Push/Publish</option>
+      <option value="1">Link 1</option>
+      <option value="2">Link 2</option>
+      <option value="3">Link 1 & Link 2</option>
+</select>
+<br>
+<br>RS 485 Device 10 Push/Publish Interval:
+<input type="text" name="rs485_pushint10" id="rs485_pushint10" size="5" maxlength="3"> <br>
+<br>RS 485 Device 10 Description:
+<input type="text" name="rs485_desc_10" id="rs485_desc_10" size="20" maxlength="19"> <br>                  
+</fieldset>
+
+<br>
+<fieldset>
+<legend>RS 485 Device 11</legend>
+<br>RS 485 Device 11 Type:
+<select name="rs485_type_11" id="rs485_type_11">
+      <option value="0">Not Connected</option>
+      <option value="1">Other Modbus Device</option>
+      <option value="2">Energy Meter</option>
+      <option value="3">Bistable Switch</option>
+      <option value="4">PQ Meter</option>
+</select>
+<br>
+<br>RS 485 Device 11 Modbus Address:
+<input type="text" name="rs485_addr_11" id="rs485_addr_11" size="5" maxlength="3"> <br>
+<br>RS 485 Device 11 Push/Publish:
+<select name="rs485_pushlnk11" id="rs485_pushlnk11">
+      <option value="0">No Push/Publish</option>
+      <option value="1">Link 1</option>
+      <option value="2">Link 2</option>
+      <option value="3">Link 1 & Link 2</option>
+</select>
+<br>
+<br>RS 485 Device 11 Push/Publish Interval:
+<input type="text" name="rs485_pushint11" id="rs485_pushint11" size="5" maxlength="3"> <br>
+<br>RS 485 Device 11 Description:
+<input type="text" name="rs485_desc_11" id="rs485_desc_11" size="20" maxlength="19"> <br>                  
+</fieldset>
+
+<br>
+<fieldset>
+<legend>RS 485 Device 12</legend>
+<br>RS 485 Device 12 Type:
+<select name="rs485_type_12" id="rs485_type_12">
+      <option value="0">Not Connected</option>
+      <option value="1">Other Modbus Device</option>
+      <option value="2">Energy Meter</option>
+      <option value="3">Bistable Switch</option>
+      <option value="4">PQ Meter</option>
+</select>
+<br>
+<br>RS 485 Device 12 Modbus Address:
+<input type="text" name="rs485_addr_12" id="rs485_addr_12" size="5" maxlength="3"> <br>
+<br>RS 485 Device 12 Push/Publish:
+<select name="rs485_pushlnk12" id="rs485_pushlnk12">
+      <option value="0">No Push/Publish</option>
+      <option value="1">Link 1</option>
+      <option value="2">Link 2</option>
+      <option value="3">Link 1 & Link 2</option>
+</select>
+<br>
+<br>RS 485 Device 12 Push/Publish Interval:
+<input type="text" name="rs485_pushint12" id="rs485_pushint12" size="5" maxlength="3"> <br>
+<br>RS 485 Device 12 Description:
+<input type="text" name="rs485_desc_12" id="rs485_desc_12" size="20" maxlength="19"> <br>                  
+</fieldset>
+
+<br>
+<fieldset>
+<legend>RS 485 Device 13</legend>
+<br>RS 485 Device 13 Type:
+<select name="rs485_type_13" id="rs485_type_13">
+      <option value="0">Not Connected</option>
+      <option value="1">Other Modbus Device</option>
+      <option value="2">Energy Meter</option>
+      <option value="3">Bistable Switch</option>
+      <option value="4">PQ Meter</option>
+</select>
+<br>
+<br>RS 485 Device 13 Modbus Address:
+<input type="text" name="rs485_addr_13" id="rs485_addr_13" size="5" maxlength="3"> <br>
+<br>RS 485 Device 13 Push/Publish:
+<select name="rs485_pushlnk13" id="rs485_pushlnk13">
+      <option value="0">No Push/Publish</option>
+      <option value="1">Link 1</option>
+      <option value="2">Link 2</option>
+      <option value="3">Link 1 & Link 2</option>
+</select>
+<br>
+<br>RS 485 Device 13 Push/Publish Interval:
+<input type="text" name="rs485_pushint13" id="rs485_pushint13" size="5" maxlength="3"> <br>
+<br>RS 485 Device 13 Description:
+<input type="text" name="rs485_desc_13" id="rs485_desc_13" size="20" maxlength="19"> <br>                  
+</fieldset>
+
+<br>
+<fieldset>
+<legend>RS 485 Device 14</legend>
+<br>RS 485 Device 14 Type:
+<select name="rs485_type_14" id="rs485_type_14">
+      <option value="0">Not Connected</option>
+      <option value="1">Other Modbus Device</option>
+      <option value="2">Energy Meter</option>
+      <option value="3">Bistable Switch</option>
+      <option value="4">PQ Meter</option>
+</select>
+<br>
+<br>RS 485 Device 14 Modbus Address:
+<input type="text" name="rs485_addr_14" id="rs485_addr_14" size="5" maxlength="3"> <br>
+<br>RS 485 Device 14 Push/Publish:
+<select name="rs485_pushlnk14" id="rs485_pushlnk14">
+      <option value="0">No Push/Publish</option>
+      <option value="1">Link 1</option>
+      <option value="2">Link 2</option>
+      <option value="3">Link 1 & Link 2</option>
+</select>
+<br>
+<br>RS 485 Device 14 Push/Publish Interval:
+<input type="text" name="rs485_pushint14" id="rs485_pushint14" size="5" maxlength="3"> <br>
+<br>RS 485 Device 14 Description:
+<input type="text" name="rs485_desc_14" id="rs485_desc_14" size="20" maxlength="19"> <br>                  
+</fieldset>
+
+<br>
+<fieldset>
+<legend>RS 485 Device 15</legend>
+<br>RS 485 Device 15 Type:
+<select name="rs485_type_15" id="rs485_type_15">
+      <option value="0">Not Connected</option>
+      <option value="1">Other Modbus Device</option>
+      <option value="2">Energy Meter</option>
+      <option value="3">Bistable Switch</option>
+      <option value="4">PQ Meter</option>
+</select>
+<br>
+<br>RS 485 Device 15 Modbus Address:
+<input type="text" name="rs485_addr_15" id="rs485_addr_15" size="5" maxlength="3"> <br>
+<br>RS 485 Device 15 Push/Publish:
+<select name="rs485_pushlnk15" id="rs485_pushlnk15">
+      <option value="0">No Push/Publish</option>
+      <option value="1">Link 1</option>
+      <option value="2">Link 2</option>
+      <option value="3">Link 1 & Link 2</option>
+</select>
+<br>
+<br>RS 485 Device 15 Push/Publish Interval:
+<input type="text" name="rs485_pushint15" id="rs485_pushint15" size="5" maxlength="3"> <br>
+<br>RS 485 Device 15 Description:
+<input type="text" name="rs485_desc_15" id="rs485_desc_15" size="20" maxlength="19"> <br>                  
+</fieldset>
+
+<br>
+<fieldset>
+<legend>RS 485 Device 16</legend>
+<br>RS 485 Device 16 Type:
+<select name="rs485_type_16" id="rs485_type_16">
+      <option value="0">Not Connected</option>
+      <option value="1">Other Modbus Device</option>
+      <option value="2">Energy Meter</option>
+      <option value="3">Bistable Switch</option>
+      <option value="4">PQ Meter</option>
+</select>
+<br>
+<br>RS 485 Device 16 Modbus Address:
+<input type="text" name="rs485_addr_16" id="rs485_addr_16" size="5" maxlength="3"> <br>
+<br>RS 485 Device 16 Push/Publish:
+<select name="rs485_pushlnk16" id="rs485_pushlnk16">
+      <option value="0">No Push/Publish</option>
+      <option value="1">Link 1</option>
+      <option value="2">Link 2</option>
+      <option value="3">Link 1 & Link 2</option>
+</select>
+<br>
+<br>RS 485 Device 16 Push/Publish Interval:
+<input type="text" name="rs485_pushint16" id="rs485_pushint16" size="5" maxlength="3"> <br>
+<br>RS 485 Device 16 Description:
+<input type="text" name="rs485_desc_16" id="rs485_desc_16" size="20" maxlength="19"> <br>                  
+</fieldset>
+
+<br>
+<input type="submit" id="submit" value="Save settings" title="Press to send, then wait a few seconds" onclick="showLoader()" >
+<button onclick="location.href='settings_RS485.html'" type="button">
+         Prev page</button>
+</div>
+</form>
+</tr>
+</table>
+</td>      
+</tbody>
+</table>
+<script type="text/javascript">
+    var pollSettings = setInterval(updateData, 2000);
+    
+    function stopPollingSettings() {
+      clearInterval(pollSettings);
+    } 
+    
+    function showLoader() {      
+      console.log("showLoader()");        
+      document.getElementById("loader").style.display = 'block';
+      document.getElementById("devicesDiv").style.display = 'none';
+      pollSettings = setInterval(updateData, 2000);
+    }
+
+    function updateData() {
+      console.log("updateData()");
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log("updateData(): got Data:", this.responseText);
+          stopPollingSettings(); 
+          document.getElementById("loader").style.display = 'none';
+          document.getElementById("devicesDiv").style.display = 'block';
+          var measData = JSON.parse(this.responseText);
+          
+          document.getElementById("rs485_addr_9").value = measData.settings.rs485_addr_9;          
+          document.getElementById("rs485_addr_10").value = measData.settings.rs485_addr_10;
+          document.getElementById("rs485_addr_11").value = measData.settings.rs485_addr_11;          
+          document.getElementById("rs485_addr_12").value = measData.settings.rs485_addr_12;
+          document.getElementById("rs485_addr_13").value = measData.settings.rs485_addr_13;          
+          document.getElementById("rs485_addr_14").value = measData.settings.rs485_addr_14;
+          document.getElementById("rs485_addr_15").value = measData.settings.rs485_addr_15;          
+          document.getElementById("rs485_addr_16").value = measData.settings.rs485_addr_16;
+          
+          document.getElementById("rs485_desc_9").value = measData.settings.rs485_desc_9;
+          document.getElementById("rs485_desc_10").value = measData.settings.rs485_desc_10;
+          document.getElementById("rs485_desc_11").value = measData.settings.rs485_desc_11;
+          document.getElementById("rs485_desc_12").value = measData.settings.rs485_desc_12;
+          document.getElementById("rs485_desc_13").value = measData.settings.rs485_desc_13;
+          document.getElementById("rs485_desc_14").value = measData.settings.rs485_desc_14;
+          document.getElementById("rs485_desc_15").value = measData.settings.rs485_desc_15;
+          document.getElementById("rs485_desc_16").value = measData.settings.rs485_desc_16;          
+          
+          document.getElementById("rs485_type_9").value = measData.settings.rs485_type_9;
+          document.getElementById("rs485_type_10").value = measData.settings.rs485_type_10;
+          document.getElementById("rs485_type_11").value = measData.settings.rs485_type_11;
+          document.getElementById("rs485_type_12").value = measData.settings.rs485_type_12;
+          document.getElementById("rs485_type_13").value = measData.settings.rs485_type_13;
+          document.getElementById("rs485_type_14").value = measData.settings.rs485_type_14;
+          document.getElementById("rs485_type_15").value = measData.settings.rs485_type_15;
+          document.getElementById("rs485_type_16").value = measData.settings.rs485_type_16;
+          
+          document.getElementById("rs485_pushlnk9").value = measData.settings.rs485_pushlnk9;
+          document.getElementById("rs485_pushlnk10").value = measData.settings.rs485_pushlnk10;
+          document.getElementById("rs485_pushlnk11").value = measData.settings.rs485_pushlnk11;
+          document.getElementById("rs485_pushlnk12").value = measData.settings.rs485_pushlnk12;
+          document.getElementById("rs485_pushlnk13").value = measData.settings.rs485_pushlnk13;
+          document.getElementById("rs485_pushlnk14").value = measData.settings.rs485_pushlnk14;
+          document.getElementById("rs485_pushlnk15").value = measData.settings.rs485_pushlnk15;
+          document.getElementById("rs485_pushlnk16").value = measData.settings.rs485_pushlnk16;
+          
+          document.getElementById("rs485_pushint9").value = measData.settings.rs485_pushint9;
+          document.getElementById("rs485_pushint10").value = measData.settings.rs485_pushint10;
+          document.getElementById("rs485_pushint11").value = measData.settings.rs485_pushint11;
+          document.getElementById("rs485_pushint12").value = measData.settings.rs485_pushint12;
+          document.getElementById("rs485_pushint13").value = measData.settings.rs485_pushint13;
+          document.getElementById("rs485_pushint14").value = measData.settings.rs485_pushint14;
+          document.getElementById("rs485_pushint15").value = measData.settings.rs485_pushint15;
+          document.getElementById("rs485_pushint16").value = measData.settings.rs485_pushint16;          
+          
+          if (measData.settings.locked > 0)
+          {          
+            document.getElementById("submit").disabled = true;          
+          }  
+        }
+      };
+      xhttp.open("GET", "/get_command?command=get_settings&time=" + new Date().getTime(), true);//add timestamp to avoid browser caching
+      xhttp.send();
+    }
+
+    updateData();
+  </script>
+</body>
+</html>

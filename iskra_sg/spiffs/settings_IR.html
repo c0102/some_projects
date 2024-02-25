@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="light_style.css">
+<title>Iskra SG</title>
+</head>    
+<body>
+<iframe name="hiddenFrame" style="width:0;height:0;border:0; border:none; display:none;"></iframe>     
+<div id="loader" class="loader" style="display:block" ></div>
+<table id="t01">
+<tbody>
+<tr style="font-weight: bold; font-size: 200%; font-family: Verdana;text-align: center;">
+<td> <img src="iskra_logo1.jpg" alt="Iskra"></td>
+<td></td>
+<td>SG Settings</td>
+</tr>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+      <tr style="height: 10px;"><td></td></tr>
+<tr>
+<td valign="top">
+<div class="vertical-menu">
+  <a href="/index.html">SG Status</a>  
+  <a href="/settings_general.html" class="active">SG Settings</a>
+  <a href="/measurements.html">Measurements</a>
+  <a href="/counters.html">Energy Counters</a>
+  <a href="/graph.html">Load Profile</a>
+  <a href="/energy_logger.html">Energy Recorder</a>
+  <a href="/devices.html">External Devices</a>
+  <a href="/bicom.html">Bicom control</a>    
+<!-- <a href="/edit">SG File Browser</a> -->
+  <a href="/update.html">SG Upgrade</a>
+</div>
+</td>
+<td></td>
+        <td valign="top">        
+          <table id="t02">
+            <tr>
+              <div class="topnav">
+                <a href="/settings_general.html">General</a>
+                <a href="settings_communication.html">Communication</a>
+                <a class="active" href="settings_IR.html">IR Devices</a>
+                <a href="settings_RS485.html">RS485 Devices</a>
+              </div>
+              <h2></h2>
+              <form action="/get_command" target="hiddenFrame">
+              <div style="display:none;" id="devicesDiv" >
+                <fieldset>
+                  <legend>IR Energy Counter:</legend>
+                  <input type="hidden" name="command" id="command" value ="set_settings">                  
+                  <input id="left_ir_disabled" type="radio" name="left_ir_enabled" value="0" onclick="if(this.checked){Left_IR_Disabled()}"> Disabled <br>
+                  <input id="left_ir_enabled" type="radio" name="left_ir_enabled" value="1" onclick="if(this.checked){Left_IR_Enabled()}"> Enabled <br>
+                  <br>                
+                  IR Energy Counter Modbus Address:
+                  <input type="text" name="ir_counter_addr" id="ir_counter_addr" size="5" maxlength="3"> <br>
+                  <br>IR Energy Counter Push/Publish:
+				  <select name="leftir_pushlink" id="leftir_pushlink">
+      			  <option value="0">No Push/Publish</option>
+      			  <option value="1">Link 1</option>
+      			  <option value="2">Link 2</option>
+      			  <option value="3">Link 1 & Link 2</option>
+				  </select>
+				  <br>
+				  <br>IR Energy Counter Push/Publish Interval:
+				  <input type="text" name="leftir_pushintv" id="leftir_pushintv" size="5" maxlength="3"> <br>
+                </fieldset>                
+                <br>
+                <fieldset>
+                  <legend>IR Relay</legend>
+                  <br>
+                  <legend>IR Relay Operating Mode:</legend>
+                  <input id="ir_relay_mode_nc" type="radio" name="ir_ext_rel_mode" value="0" onclick="if(this.checked){descriptionOFF()}"> Not Connected <br>
+                  <input id="ir_relay_mode_man" type="radio" name="ir_ext_rel_mode" value="1" onclick="if(this.checked){descriptionON()}"> Controlled by SG <br>
+                  <input id="ir_relay_mode_limit" type="radio" name="ir_ext_rel_mode" value="2" onclick="if(this.checked){descriptionON()}"> Controlled by IR Counter <br>
+                  <br>
+                  IR Relay Push/Publish:
+				  <select name="rightir_pushlnk" id="rightir_pushlnk">
+      			  <option value="0">No Push/Publish</option>
+      			  <option value="1">Link 1</option>
+      			  <option value="2">Link 2</option>
+      			  <option value="3">Link 1 & Link 2</option>
+				  </select>
+				  <br>
+				  <br>IR Relay Push/Publish Interval:
+				  <input type="text" name="rightir_pushint" id="rightir_pushint" size="5" maxlength="3"> <br>
+                  <br>
+                  IR Relay Description:
+                  <input type="text" name="ir_relay_desc" id="ir_relay_desc" size="20" maxlength="19"> <br>
+                </fieldset>
+                <br>
+                <input type="submit" id="submit" value="Save settings" title="Press to send, then wait a few seconds" onclick="showLoader()" >
+                </div>
+              </form>
+              </tr>
+          </table>
+        </td>      
+    </tbody>
+  </table>
+
+  <script type="text/javascript">    
+  
+    var pollSettings = setInterval(updateData, 2000);
+    
+    function stopPollingSettings() {
+      clearInterval(pollSettings);
+    } 
+    
+    function showLoader() {      
+      console.log("showLoader()");        
+      document.getElementById("loader").style.display = 'block';
+      document.getElementById("devicesDiv").style.display = 'none';
+      pollSettings = setInterval(updateData, 2000);              
+    }
+    
+    function descriptionON() {
+      console.log("descriptionON()");
+      document.getElementById("ir_relay_desc").disabled = false;          
+    }
+    
+    function descriptionOFF() {
+      console.log("descriptionOFF()");
+      document.getElementById("ir_relay_desc").disabled = true;      
+    }
+    
+    function Left_IR_Enabled() {
+      console.log("Left_IR_Enabled()");
+      document.getElementById("ir_counter_addr").disabled = false;      
+      document.getElementById(IrCounterEnabledIds[1]).checked = true;          
+    }
+    
+    function Left_IR_Disabled() {
+      console.log("Left_IR_Disabled()");
+      document.getElementById("ir_counter_addr").disabled = true;
+      document.getElementById(IrCounterEnabledIds[0]).checked = true;      
+    }
+
+    function updateData() {
+      console.log("updateData()");
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log("updateData(): got Data:", this.responseText);
+          stopPollingSettings(); 
+          document.getElementById("loader").style.display = 'none';
+          document.getElementById("devicesDiv").style.display = 'block';
+          var measData = JSON.parse(this.responseText);
+          document.getElementById("ir_counter_addr").value = measData.settings.ir_counter_addr;
+          document.getElementById("ir_relay_desc").value = measData.settings.ir_relay_desc;
+          document.getElementById("leftir_pushlink").value = measData.settings.leftir_pushlink;
+          document.getElementById("leftir_pushintv").value = measData.settings.leftir_pushintv;
+          document.getElementById("rightir_pushlnk").value = measData.settings.rightir_pushlnk;
+          document.getElementById("rightir_pushint").value = measData.settings.rightir_pushint;                    
+
+		  if (measData.settings.locked > 0)
+          {          
+            document.getElementById("submit").disabled = true;          
+          }
+          
+          // Set IR Relay Mode
+          console.log("IR relay mode:", measData.settings.ir_ext_rel_mode);
+          IrRelayModeIds = ["ir_relay_mode_nc", "ir_relay_mode_man", "ir_relay_mode_limit"];
+          if (measData.settings.ir_ext_rel_mode < 3) {
+            document.getElementById(IrRelayModeIds[measData.settings.ir_ext_rel_mode]).checked = true;            
+          }          
+          if (measData.settings.ir_ext_rel_mode == 0)
+            descriptionOFF();
+          else
+            descriptionON();                      
+
+          // Set IR Counter
+          console.log("IR counter enabled:", measData.settings.left_ir_enabled);
+          IrCounterEnabledIds = ["left_ir_disabled", "left_ir_enabled"];          
+          if (measData.settings.left_ir_enabled == 0)
+            Left_IR_Disabled();
+          else
+            Left_IR_Enabled();
+          
+        }
+      };
+      //xhttp.open("GET", "/settings?_=" + new Date().getTime(), true); //add timestamp to avoid browser caching
+      xhttp.open("GET", "/get_command?command=get_settings&time=" + new Date().getTime(), true);//add timestamp to avoid browser caching
+      xhttp.send();
+    }
+
+    updateData();
+  </script>
+</body>
+
+</html>

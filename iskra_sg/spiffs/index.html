@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="light_style.css">
+<title>Iskra SG</title>
+</head>
+<body>
+<div id="loader" class="loader" style="display:none" ></div>
+<table id="t01">
+<tbody>
+<tr style="font-weight: bold; font-size: 200%; font-family: Verdana;text-align: center;">
+<td> <img src="iskra_logo1.jpg" alt="Iskra"></td>
+<td></td>
+<td>SG Status</td>
+</tr>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+<tr style="height: 10px;"><td></td></tr>
+<tr>
+<td valign="top">
+<div class="vertical-menu">
+  <a href="/index.html" class="active">SG Status</a>  
+  <a href="/settings_general.html">SG Settings</a>
+  <a href="/measurements.html">Measurements</a>
+  <a href="/counters.html">Energy Counters</a>
+  <a href="/graph.html">Load Profile</a>
+  <a href="/energy_logger.html">Energy Recorder</a>
+  <a href="/devices.html">External Devices</a>
+  <a href="/bicom.html">Bicom control</a>    
+<!-- <a href="/edit">SG File Browser</a> -->
+  <a href="/update.html">SG Upgrade</a>
+</div>
+</td>
+<td></td>
+<td valign="top">
+<table id="t02">
+<tr>
+<div style="display:none;" id="devicesDiv" >
+<th>General</th>
+<th></th>
+</tr>
+<tr>
+<td class="t02Cell">Model Type</td>
+<td class="t02Cell"><span id="model_type"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Serial number</td>
+<td class="t02Cell"><span id="serial"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Connection mode</td>
+<td><span id="connection_mode"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Description</td>
+<td><span id="description"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Location</td>
+<td><span id="location"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Flash Size</td>
+<td><span id="flash_size"></span> MB</td>
+</tr>
+<tr>
+<td class="t02Cell">EEPROM</td>
+<td><span id="eeprom_size"></span> kB</td>
+</tr>
+<tr>
+<th>SG Status</th>
+<th></th>
+</tr>
+<tr id="wifiDiv1">
+<td class="t02Cell">WiFi SSID</td>
+<td class="t02Cell"><span id="ssid"></span></td>
+</tr>
+<tr id="wifiDiv2">
+<td class="t02Cell">Wifi Signal Level</td>
+<td class="t02Cell"><span id="wifi_signal_level"></span> dBm</td>
+</tr>
+<tr>
+<td class="t02Cell">IP address</td>
+<td class="t02Cell"><span id="ip_address"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">MAC address</td>
+<td class="t02Cell"><span id="mac_address"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">App Status</td>
+<td class="t02Cell"><span id="app_status"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Upgrade Status</td>
+<td class="t02Cell"><span id="upgrade_status"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">MQTT 1 Status</td>
+<td class="t02Cell"><span id="mqtt1_state"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">MQTT 2 Status</td>
+<td class="t02Cell"><span id="mqtt2_state"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Settings CRC</td>
+<td class="t02Cell"><span id="CRC"></span> (<span id="NVS_CRC"></span>)</td>
+</tr>
+<tr>
+<td class="t02Cell">Free Memory</td>
+<td class="t02Cell"><span id="heap"></span> (<span id="heap_min"></span>)</td>
+</tr>
+<tr>
+<td class="t02Cell">Error flags</td>
+<td class="t02Cell"><span id="Error_flags"></span></td>
+</tr>
+<tr>
+<th>Version Info</th>
+<th></th>
+</tr>
+<tr>
+<td class="t02Cell">SW Version</td>
+<td class="t02Cell"><span id="sw_version"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">HW Version</td>
+<td class="t02Cell"><span id="hw_ver"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Filesystem Version</td>
+<td class="t02Cell"><span id="fs_ver"></span></td>
+</tr>
+<tr>
+<th>Other</th>
+<th></th>
+</tr>
+<tr>
+<td class="t02Cell">Temperature</td>
+<td class="t02Cell"><span id="pt_1000_temp"></span> &#176;C</td>
+</tr>
+<tr>
+<td class="t02Cell">Digital input count</td>
+<td class="t02Cell"><span id="dig_count"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Uptime</td>
+<td class="t02Cell"><span id="uptime"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Local Time</td>
+<td class="t02Cell"><span id="local_time"></span></td>
+</tr>
+</div>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<script type="text/javascript">    	
+    
+    function updateData() {
+      console.log("updateData()");
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+           console.log("updateData(): got Data:", this.responseText);           
+           var measData = JSON.parse(this.responseText);           
+           if(measData.app_status == "Upgrading")
+           {
+           	document.getElementById("loader").style.display = 'block';
+      		document.getElementById("devicesDiv").style.display = 'none';
+      	   }      		
+           else
+           {             
+            document.getElementById("loader").style.display = 'none';
+            document.getElementById("devicesDiv").style.display = 'block';
+           }
+           document.getElementById("model_type").innerHTML = measData.model_type;
+           document.getElementById("serial").innerHTML = measData.serial_number;
+           document.getElementById("connection_mode").innerHTML = measData.connection_mode;
+           document.getElementById("ssid").innerHTML = measData.ssid;
+           document.getElementById("ip_address").innerHTML = measData.ip_address;
+           document.getElementById("mac_address").innerHTML = measData.mac_address;
+           document.getElementById("wifi_signal_level").innerHTML = measData.wifi_rssi;
+           document.getElementById("sw_version").innerHTML = measData.sw_version;
+           document.getElementById("mqtt1_state").innerHTML = measData.mqtt1_state;
+           document.getElementById("mqtt2_state").innerHTML = measData.mqtt2_state;
+           document.getElementById("fs_ver").innerHTML = measData.fs_ver;
+           document.getElementById("hw_ver").innerHTML = String.fromCharCode(measData.hw_ver); 
+           document.getElementById("eeprom_size").innerHTML = measData.eeprom_size;          
+           document.getElementById("description").innerHTML = measData.description;
+           document.getElementById("location").innerHTML = measData.location;           
+           document.getElementById("app_status").innerHTML = measData.app_status;
+           document.getElementById("upgrade_status").innerHTML = measData.upgrade_status;
+           document.getElementById("CRC").innerHTML = measData.CRC;
+           document.getElementById("NVS_CRC").innerHTML = measData.NVS_CRC;
+           document.getElementById("pt_1000_temp").innerHTML = measData.pt1000_temp;
+           document.getElementById("local_time").innerHTML = measData.local_time;
+           document.getElementById("uptime").innerHTML = measData.uptime;
+           document.getElementById("dig_count").innerHTML = measData.dig_count;
+           document.getElementById("flash_size").innerHTML = measData.flash_size;
+           document.getElementById("Error_flags").innerHTML = measData.Error_flags;
+           document.getElementById("heap").innerHTML = measData.heap; 
+           document.getElementById("heap_min").innerHTML = measData.heap_min;                                 
+           
+           if (measData.connection_mode == 'Ethernet')
+           {
+             console.log("Ethernet Mode");
+             document.getElementById("wifiDiv1").style.display = 'none';                          
+             document.getElementById("wifiDiv2").style.display = 'none';
+           }
+           else
+           {
+             console.log("WiFi Mode");
+             document.getElementById("wifiDiv1").style.display = '';            
+             document.getElementById("wifiDiv2").style.display = '';
+           }                    
+          }
+        };
+        xhttp.open("GET", "/get_command?command=get_status&time=" + new Date().getTime(), true);//add timestamp to avoid browser caching
+        xhttp.send();
+      }                                
+      
+      setTimeout(updateData, 100); //updateData();
+      window.setInterval(updateData, 30000); //update status every 30 seconds           
+    </script>
+</body>
+</html>

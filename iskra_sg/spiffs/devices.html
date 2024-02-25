@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="light_style.css">
+<title>Iskra SG</title>
+</head>
+<body>
+<table id="t01">
+<tbody>
+<tr style="font-weight: bold; font-size: 200%; font-family: Verdana;text-align: center;">
+<td> <img src="iskra_logo1.jpg" alt="Iskra"></td>
+<td></td>
+<td>External Devices</td>
+</tr>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+<tr style="height: 10px;"><td></td></tr>
+<tr>
+<td valign="top">
+<div class="vertical-menu">
+  <a href="/index.html">SG Status</a>  
+  <a href="/settings_general.html">SG Settings</a>
+  <a href="/measurements.html">Measurements</a>
+  <a href="/counters.html">Energy Counters</a>
+  <a href="/graph.html">Load Profile</a>
+  <a href="/energy_logger.html">Energy Recorder</a>
+  <a href="/devices.html" class="active">External Devices</a>
+  <a href="/bicom.html">Bicom control</a>    
+<!-- <a href="/edit">SG File Browser</a> -->
+  <a href="/update.html">SG Upgrade</a>
+</div>
+</td>
+<td></td>
+<td valign="top">
+<table id="t02">
+<tr>
+<div style="display:none;" id="devicesDiv" >
+<th>External Device</th>
+<th>Model</th>
+<th>Serial no.</th>
+<th>Modbus addr</th>
+</tr>
+<tr>
+<td class="t02Cell">Left IR Device</td>
+<td class="t02Cell"><span id="left_ir_type"></span></a></td>
+<td class="t02Cell"><span id="left_ir_serial"></span></a></td>
+<td class="t02Cell"><span id="left_ir_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">Right IR Device</td>
+<td class="t02Cell"><span id="right_ir_type"></span></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 1</td>
+<td class="t02Cell"><span id="rs485_1_type"></span></a></td>
+<td class="t02Cell"><span id="rs485_1_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_1_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 2</td>
+<td class="t02Cell"><span id="rs485_2_type"></span></a></td>
+<td class="t02Cell"><span id="rs485_2_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_2_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 3</td>
+<td class="t02Cell"><span id="rs485_3_type"></span></td>
+<td class="t02Cell"><span id="rs485_3_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_3_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 4</td>
+<td class="t02Cell"><span id="rs485_4_type"></span></td>
+<td class="t02Cell"><span id="rs485_4_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_4_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 5</td>
+<td class="t02Cell"><span id="rs485_5_type"></span></td>
+<td class="t02Cell"><span id="rs485_5_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_5_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 6</td>
+<td class="t02Cell"><span id="rs485_6_type"></span></td>
+<td class="t02Cell"><span id="rs485_6_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_6_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 7</td>
+<td class="t02Cell"><span id="rs485_7_type"></span></td>
+<td class="t02Cell"><span id="rs485_7_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_7_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 8</td>
+<td class="t02Cell"><span id="rs485_8_type"></span></td>
+<td class="t02Cell"><span id="rs485_8_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_8_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 9</td>
+<td class="t02Cell"><span id="rs485_9_type"></span></td>
+<td class="t02Cell"><span id="rs485_9_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_9_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 10</td>
+<td class="t02Cell"><span id="rs485_10_type"></span></td>
+<td class="t02Cell"><span id="rs485_10_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_10_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 11</td>
+<td class="t02Cell"><span id="rs485_11_type"></span></td>
+<td class="t02Cell"><span id="rs485_11_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_11_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 12</td>
+<td class="t02Cell"><span id="rs485_12_type"></span></td>
+<td class="t02Cell"><span id="rs485_12_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_12_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 13</td>
+<td class="t02Cell"><span id="rs485_13_type"></span></td>
+<td class="t02Cell"><span id="rs485_13_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_13_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 14</td>
+<td class="t02Cell"><span id="rs485_14_type"></span></td>
+<td class="t02Cell"><span id="rs485_14_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_14_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 15</td>
+<td class="t02Cell"><span id="rs485_15_type"></span></td>
+<td class="t02Cell"><span id="rs485_15_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_15_addr"></span></a></td>
+</tr>
+<tr>
+<td class="t02Cell">RS 485 Device 16</td>
+<td class="t02Cell"><span id="rs485_16_type"></span></td>
+<td class="t02Cell"><span id="rs485_16_serial"></span></a></td>
+<td class="t02Cell"><span id="rs485_16_addr"></span></a></td>
+</tr>
+</div>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<script type="text/javascript">    	
+    
+    function updateData() {
+      console.log("updateData()");
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+           console.log("updateData(): got Data:", this.responseText);           
+           var measData = JSON.parse(this.responseText);           
+                        
+           document.getElementById("devicesDiv").style.display = 'block';
+           
+           document.getElementById("left_ir_type").innerHTML = measData.device_lir_model;
+           document.getElementById("left_ir_serial").innerHTML = measData.device_lir_serial;
+           document.getElementById("left_ir_addr").innerHTML = measData.device_lir_addr;
+           document.getElementById("right_ir_type").innerHTML = measData.device_rir_model;           
+           document.getElementById("rs485_1_type").innerHTML = measData.device_1_model;
+           document.getElementById("rs485_1_serial").innerHTML = measData.device_1_serial;
+           document.getElementById("rs485_1_addr").innerHTML = measData.device_1_addr;
+           document.getElementById("rs485_2_type").innerHTML = measData.device_2_model;
+           document.getElementById("rs485_2_serial").innerHTML = measData.device_2_serial;
+           document.getElementById("rs485_2_addr").innerHTML = measData.device_2_addr;
+           document.getElementById("rs485_3_type").innerHTML = measData.device_3_model;
+           document.getElementById("rs485_3_serial").innerHTML = measData.device_3_serial;
+           document.getElementById("rs485_3_addr").innerHTML = measData.device_3_addr;                                                  
+           document.getElementById("rs485_4_type").innerHTML = measData.device_4_model;
+           document.getElementById("rs485_4_serial").innerHTML = measData.device_4_serial;
+           document.getElementById("rs485_4_addr").innerHTML = measData.device_4_addr;
+           document.getElementById("rs485_5_type").innerHTML = measData.device_5_model;
+           document.getElementById("rs485_5_serial").innerHTML = measData.device_5_serial;
+           document.getElementById("rs485_5_addr").innerHTML = measData.device_5_addr;
+           document.getElementById("rs485_6_type").innerHTML = measData.device_6_model;
+           document.getElementById("rs485_6_serial").innerHTML = measData.device_6_serial;
+           document.getElementById("rs485_6_addr").innerHTML = measData.device_6_addr;
+           document.getElementById("rs485_7_type").innerHTML = measData.device_7_model;
+           document.getElementById("rs485_7_serial").innerHTML = measData.device_7_serial;
+           document.getElementById("rs485_7_addr").innerHTML = measData.device_7_addr;
+           document.getElementById("rs485_8_type").innerHTML = measData.device_8_model;
+           document.getElementById("rs485_8_serial").innerHTML = measData.device_8_serial;
+           document.getElementById("rs485_8_addr").innerHTML = measData.device_8_addr;
+           document.getElementById("rs485_9_type").innerHTML = measData.device_9_model;
+           document.getElementById("rs485_9_serial").innerHTML = measData.device_9_serial;
+           document.getElementById("rs485_9_addr").innerHTML = measData.device_9_addr;
+           document.getElementById("rs485_10_type").innerHTML = measData.device_10_model;
+           document.getElementById("rs485_10_serial").innerHTML = measData.device_10_serial;
+           document.getElementById("rs485_10_addr").innerHTML = measData.device_10_addr;
+           document.getElementById("rs485_11_type").innerHTML = measData.device_11_model;
+           document.getElementById("rs485_11_serial").innerHTML = measData.device_11_serial;
+           document.getElementById("rs485_11_addr").innerHTML = measData.device_11_addr;
+           document.getElementById("rs485_12_type").innerHTML = measData.device_12_model;
+           document.getElementById("rs485_12_serial").innerHTML = measData.device_12_serial;
+           document.getElementById("rs485_12_addr").innerHTML = measData.device_12_addr;
+           document.getElementById("rs485_13_type").innerHTML = measData.device_13_model;
+           document.getElementById("rs485_13_serial").innerHTML = measData.device_13_serial;
+           document.getElementById("rs485_13_addr").innerHTML = measData.device_13_addr;
+           document.getElementById("rs485_14_type").innerHTML = measData.device_14_model;
+           document.getElementById("rs485_14_serial").innerHTML = measData.device_14_serial;
+           document.getElementById("rs485_14_addr").innerHTML = measData.device_14_addr;
+           document.getElementById("rs485_15_type").innerHTML = measData.device_15_model;
+           document.getElementById("rs485_15_serial").innerHTML = measData.device_15_serial;
+           document.getElementById("rs485_15_addr").innerHTML = measData.device_15_addr;
+           document.getElementById("rs485_16_type").innerHTML = measData.device_16_model;
+           document.getElementById("rs485_16_serial").innerHTML = measData.device_16_serial;
+           document.getElementById("rs485_16_addr").innerHTML = measData.device_16_addr;
+          }
+        };
+        xhttp.open("GET", "/get_command?command=get_devices&time=" + new Date().getTime(), true);//add timestamp to avoid browser caching
+        xhttp.send();
+      }                                
+      
+      setTimeout(updateData, 100); //updateData();
+      window.setInterval(updateData, 30000); //update status every 30 seconds           
+    </script>
+</body>
+</html>

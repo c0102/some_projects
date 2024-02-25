@@ -1,0 +1,201 @@
+menu "Enchele Smart-Dual module"
+   
+    choice SINGLE_DUAL_MODULE
+        prompt "Please select Single or Dual module"
+        default MODULE_NONE 
+        help    
+            Select whether this code is compiled for dual or single module. By default SINGLE is selected
+
+        config ENC_SINGLE_MODULE
+            bool "Single module"
+            select SINGLE_MODULE
+        config ENC_DUAL_MODULE 
+            bool "Dual module"
+            select DUAL_MODULE
+        config MODULE_NONE
+            bool "None"
+    endchoice
+    
+    config DUAL_MODULE
+        bool
+        default n
+    
+    config SINGLE_MODULE
+        bool
+        default n
+
+    config SWITCH_PIN
+        int "The pin that the switch1 is connected to"
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default 15
+            help 
+                The pin for SWITCH 1, this should be set for both single and dual modules 
+
+    config SWITCH_PIN_2
+        int "The pin for SWITCH 2"
+        depends on DUAL_MODULE
+        default 16 
+            help 
+                The pin for SWITCH 2, this should be set only for dual module 
+
+    config RELAY_PIN
+        int "The pin that the relay1 is connected to"
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default 4
+            help 
+                The pin for RELAY 1, this should be set for both single and dual modules 
+    
+    config RELAY_PIN_2
+        int "The pin for RELAY 2"
+        depends on DUAL_MODULE
+        default 5 
+            help 
+                The pin for RELAY 2, this should be set only for dual module 
+    
+    config HLW_PIN
+        int "The pin HLW is connected to."
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default 6 
+            help 
+                The pin where HLW8032 is connected to
+    # config HLW_V_COEFF
+    #     int "The voltage coefficient calculated from the resitor values"
+    #     depends on SINGLE_MODULE || DUAL_MODULE
+    #     default 1.88
+    #         help
+    #             The coefficient is calculated from the resistor values in the vol divider in the hlw circuit. 
+    #             In the default case, like in the datasheet, we have 4 440k resistors in series and a 1k resistor parallel
+    #             so the calculation is (4*440k)/(1k * 1000) = 1.88  
+    
+    config THINGNAME
+        string "Enter a thingname for this module"
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default "test0001"
+            help
+                Give a name for the module that is beeing programmed. 
+                NOTE: This is to be used only during developement! For production a different strategy 
+                      MUST be used!
+
+    config THINGNAME_PREFIX
+        string "Enter a prefix"
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default "enc_mod" if SINGLE_MODULE
+        default "enc_dmod" if DUAL_MODULE
+            help 
+                This prefix will be added to the beginig of THINGNAME 
+    
+    config WIFI_SSID
+        string "Enter wifi ssid"
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default "Enchele@TelKos"
+    
+    config WIFI_PASS
+        string "Enter wifi pass"
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default "fadili666"
+
+    config AP_NAME 
+        string "Enter AP name"
+        default "enchele_module"
+        depends on SINGLE_MODULE || DUAL_MODULE
+
+    config AP_PASS 
+        string "Enter ap pass"
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default ""
+    
+    config MESSAGE_LENGTH
+        int "Enter the length of messages that can be passed to the device"
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default 500
+        help
+            This sets the maximum size of the message that can be passed to the message parsing sytem.
+            This will also set the size of the response message that the system may generate so bear in mind
+            that the actual size in kB will be MESSAGE_LENGTH*2
+    
+    config THINGNAME_LENGTH
+        int "Enter the length of thingname"
+            depends on SINGLE_MODULE || DUAL_MODULE
+            default 64
+            help
+                This sets the maximum size of thingname
+    
+    config WIFI_SSID_LENGTH
+        int "Enter the length of wifi ssid"
+            depends on SINGLE_MODULE || DUAL_MODULE
+            default 32
+            help
+                This sets the maximum size of wifi_ssid
+
+    config WIFI_PASS_LENGTH
+        int "Enter the length of wifi pass"
+            depends on SINGLE_MODULE || DUAL_MODULE
+            default 64
+            help
+                This sets the maximum size of wifi_pass
+
+    config AP_NAME_LENGTH
+        int "Enter the length of ap name"
+            depends on SINGLE_MODULE || DUAL_MODULE
+            default 32
+            help
+                This sets the maximum size of ap name
+
+    config AP_PASS_LENGTH
+        int "Enter the length of ap pass"
+            depends on SINGLE_MODULE || DUAL_MODULE
+            default 64
+            help
+                This sets the maximum size of ap pass
+
+    config MQTT_HOST_URL_LENGTH
+        int "Enter the length of mqtt host url"
+            depends on SINGLE_MODULE || DUAL_MODULE
+            default 100
+            help
+                This sets the maximum size of the mqtt host url
+    
+
+    config MQTT_TOPIC_LENGTH
+        int "Enter the maximum length of mqtt topics"
+            depends on SINGLE_MODULE || DUAL_MODULE
+            default 50
+            help
+                This sets the maximum size of the mqtt topics
+                
+    config MQTT_SERVER_HOST_URL
+        string "Enter the URL of the mqtt server"
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default "mqtts://a2y3luj7byzkvb-ats.iot.us-east-2.amazonaws.com"
+    
+    config MQTT_SERVER_HOST_PORT
+        int "Enter the PORT of the mqtt server"
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default 8883
+    
+    config PUBLISH_TOPIC
+        string "Enter the mqtt publish topic of the device!"
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default "get"
+    
+    config SUBSCRIBE_TOPIC
+        string "Enter the mqtt subscribe topic of the device!"
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default "set"
+    
+    config INFO_TOPIC
+        string "Enter the mqtt info topic of the device!"
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default "info"
+    
+    config LOG_TOPIC
+        string "Enter the mqtt info topic of the device!"
+        depends on SINGLE_MODULE || DUAL_MODULE
+        default "log"
+    
+    
+    
+    
+    
+        
+endmenu

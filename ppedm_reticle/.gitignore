@@ -1,0 +1,5 @@
+.vscode/
+build/*
+!build/ppedm_reticle
+videos/moving_zoomed_in.mp4
+venv/

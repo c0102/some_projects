@@ -1,0 +1,48 @@
+DEBUG:root:ImgProc Thread has started!
+DEBUG:root:Load Config called
+DEBUG:root:Settings Config loaded successfully!
+DEBUG:root:ImgProc Thread has started!
+DEBUG:root:Load Config called
+DEBUG:root:Settings Config loaded successfully!
+DEBUG:root:Save Config called
+DEBUG:root:Settings Config saved successfully!
+DEBUG:root:ImgProc Thread has started!
+DEBUG:root:Load Config called
+DEBUG:root:Settings Config loaded successfully!
+DEBUG:root:Save Config called
+DEBUG:root:Settings Config saved successfully!
+DEBUG:root:ImgProc Thread has started!
+DEBUG:root:Load Config called
+DEBUG:root:Settings Config loaded successfully!
+DEBUG:root:Save Config called
+DEBUG:root:Settings Config saved successfully!
+DEBUG:root:[LOAD]: config file located at /home/orangepi/Projects/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: loaded config file from /home/orangepi/Projects/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: config file located at /home/orangepi/Projects/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: loaded config file from /home/orangepi/Projects/ppedm_reticle/config.json
+DEBUG:root:[SAVE]: config file will be saved as /home/orangepi/Projects/ppedm_reticle/config.json
+DEBUG:root:[SAVE]: saved config file at /home/orangepi/Projects/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: config file located at /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: loaded config file from /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: config file located at /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: loaded config file from /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: config file located at /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: loaded config file from /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: config file located at /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: loaded config file from /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: config file located at /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: loaded config file from /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[SAVE]: config file will be saved as /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[SAVE]: saved config file at /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: config file located at /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: loaded config file from /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: config file located at /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: loaded config file from /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: config file located at /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: loaded config file from /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: config file located at /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: loaded config file from /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: config file located at /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: loaded config file from /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: config file located at /home/orangepi/ppedm_reticle/config.json
+DEBUG:root:[LOAD]: loaded config file from /home/orangepi/ppedm_reticle/config.json

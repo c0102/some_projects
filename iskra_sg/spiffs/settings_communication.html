@@ -1,0 +1,458 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="light_style.css">
+<title>Iskra SG</title>
+</head>
+<body>
+<iframe name="hiddenFrame" style="width:0;height:0;border:0; border:none; display:none;"></iframe>
+<div id="loader" class="loader" style="display:block" ></div>
+<table id="t01">
+<tbody>
+<tr style="font-weight: bold; font-size: 200%; font-family: Verdana;text-align: center;">
+<td> <img src="iskra_logo1.jpg" alt="Iskra"></td>
+<td></td>
+<td>SG SETTINGS</td>
+</tr>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+<tr style="height: 10px;"><td></td></tr>
+<tr>
+<td valign="top">
+<div class="vertical-menu">
+<a href="/index.html">SG Status</a>  
+<a href="/settings_general.html" class="active">SG Settings</a>
+<a href="/measurements.html">Measurements</a>
+<a href="/counters.html">Energy Counters</a>
+<a href="/graph.html">Load Profile</a>
+<a href="/energy_logger.html">Energy Recorder</a>
+<a href="/devices.html">External Devices</a>
+<a href="/bicom.html">Bicom control</a>    
+<!-- <a href="/edit">SG File Browser</a> -->
+<a href="/update.html">SG Upgrade</a>
+</div>
+</td>
+<td></td>
+<td valign="top">
+<table id="t02">
+<tr>
+<div class="topnav">
+<a href="/settings_general.html">General</a>
+<a class="active" href="settings_communication.html">Communication</a>
+<a href="settings_IR.html">IR Devices</a>
+<a href="settings_RS485.html">RS485 Devices</a>
+</div>
+<h2></h2>
+<form action="/get_command" target="hiddenFrame">
+<div style="display:none;" id="devicesDiv" >
+<fieldset id="push1_settings">
+<legend>Push / Publish Link 1:</legend>
+<input type="hidden" name="command" id="command" value ="set_settings">
+<legend>Push protocol:</legend>
+<input id="push1_disabled" type="radio" name="push1_protocol" value="0" onclick="if(this.checked){mqtt1_OFF(); push1_OFF()}"> Disabled <br>
+<input id="push1_protocol_mqtt" type="radio" name="push1_protocol" value="1" onclick="if(this.checked){mqtt1_ON()}"> MQTT <br>
+<input id="push1_protocol_push" type="radio" name="push1_protocol" value="2" onclick="if(this.checked){mqtt1_OFF();push1_ON();}"> Standard TCP <br>
+<br>MQTT/PUSH Server:
+<input type="text" name="mqtt1_server" id="mqtt1_server" size="60" maxlength="59">
+<br>  MQTT/PUSH Port:
+<input type="text" name="mqtt1_port" id="mqtt1_port" size="5" maxlength="5">
+<br>  Push response time:
+<input type="text" name="push1_resp_time" id="push1_resp_time" size="5" maxlength="5">
+<br>
+<br>MQTT Protocol:<br>
+<input id="mqtt1_tls_dis" type="radio" name="mqtt1_tls" onclick="mqttTls1_OFF();" value="0"> MQTT over TCP <br>
+<input id="mqtt1_tls_en" type="radio" name="mqtt1_tls" onclick="mqttTls1_ON();" value="1""> MQTT over SSL <br>
+<input id="mqtt1_tls_mu" type="radio" name="mqtt1_tls" onclick="mqttTls1_Mutual();" value="2""> MQTT over SSL Mutual Auth
+<br>
+<br>  MQTT Username:
+<input type="text" name="mqtt1_username" id="mqtt1_username" size="32" maxlength="32">
+<br>
+<br>  MQTT Password:
+<input type="password" name="mqtt1_password" id="mqtt1_password" size="32" maxlength="32">
+<br>
+<br>  MQTT Root Topic:
+<input type="text" name="mqtt1_roottopic" id="mqtt1_roottopic" size="40" maxlength="39">
+<br>
+<br>  MQTT Subscribe topic:
+<input type="text" name="mqtt1_sub_topic" id="mqtt1_sub_topic" size="40" maxlength="39">
+<br>
+<br>  MQTT Publish topic:
+<input type="text" name="mqtt1_pub_topic" id="mqtt1_pub_topic" size="40" maxlength="39">
+<br>
+<br>  MQTT Server certificate filename:
+<input type="text" name="mqtt1_cert_file" id="mqtt1_cert_file" size="40" maxlength="39">
+<br>
+<br>  MQTT Client certificate filename:
+<input type="text" name="mqtt1_cli_cert" id="mqtt1_cli_cert" size="40" maxlength="39">
+<br>
+<br>  MQTT Client Private key filename:
+<input type="text" name="mqtt1_key_file" id="mqtt1_key_file" size="40" maxlength="39">
+<br>
+<br>MQTT Logging:
+<br>
+<select name="mqtt1_loglevel" id="mqtt1_loglevel">
+      <option value="0"> No Logging</option>
+      <option value="1">Errors</option>
+      <option value="2">Warnings</option>
+      <option value="3">Info</option>
+      <option value="4">Debug</option>
+      <option value="5">Verbose</option>
+</select>  
+<br>    
+</fieldset>
+<br>
+<fieldset id="push2_settings">
+<legend>Push / Publish Link 2:</legend>
+<legend>Push protocol:</legend>
+<input id="push2_disabled" type="radio" name="push2_protocol" value="0" onclick="if(this.checked){mqtt2_OFF();push2_OFF();}"> Disabled <br>
+<input id="push2_protocol_mqtt" type="radio" name="push2_protocol" value="1" onclick="if(this.checked){mqtt2_ON()}"> MQTT <br>
+<input id="push2_protocol_push" type="radio" name="push2_protocol" value="2" onclick="if(this.checked){mqtt2_OFF();push2_ON();}"> Standard TCP <br>
+<br>MQTT/PUSH Server:
+<input type="text" name="mqtt2_server" id="mqtt2_server" size="60" maxlength="59">
+<br>MQTT/PUSH Port:
+<input type="text" name="mqtt2_port" id="mqtt2_port" size="5" maxlength="5">
+<br>  Push response time:
+<input type="text" name="push2_resp_time" id="push2_resp_time" size="5" maxlength="5">
+<br>
+<br>MQTT Protocol:<br>
+<input id="mqtt2_tls_dis" type="radio" name="mqtt2_tls" onclick="mqttTls2_OFF();" value="0"> MQTT over TCP <br>
+<input id="mqtt2_tls_en" type="radio" name="mqtt2_tls" onclick="mqttTls2_ON();" value="1""> MQTT over SSL <br>
+<input id="mqtt2_tls_mu" type="radio" name="mqtt2_tls" onclick="mqttTls2_Mutual();" value="2""> MQTT over SSL Mutual Auth
+<br>
+<br>  MQTT Username:
+<input type="text" name="mqtt2_username" id="mqtt2_username" size="32" maxlength="32">
+<br>
+<br>  MQTT Password:
+<input type="password" name="mqtt2_password" id="mqtt2_password" size="32" maxlength="32">
+<br>
+<br>  MQTT Root Topic:
+<input type="text" name="mqtt2_roottopic" id="mqtt2_roottopic" size="40" maxlength="39">
+<br>
+<br>  MQTT Subscribe topic:
+<input type="text" name="mqtt2_sub_topic" id="mqtt2_sub_topic" size="40" maxlength="39">
+<br>
+<br>  MQTT Publish topic:
+<input type="text" name="mqtt2_pub_topic" id="mqtt2_pub_topic" size="40" maxlength="39">
+<br>
+<br>  MQTT Server certificate filename:
+<input type="text" name="mqtt2_cert_file" id="mqtt2_cert_file" size="40" maxlength="39">
+<br>
+<br>  MQTT Client certificate filename:
+<input type="text" name="mqtt2_cli_cert" id="mqtt2_cli_cert" size="40" maxlength="39">
+<br>
+<br>  MQTT Client Private key filename:
+<input type="text" name="mqtt2_key_file" id="mqtt2_key_file" size="40" maxlength="39">
+<br>
+<br>MQTT Logging:
+<br>
+<select name="mqtt2_loglevel" id="mqtt2_loglevel">
+      <option value="0"> No Logging</option>
+      <option value="1">Errors</option>
+      <option value="2">Warnings</option>
+      <option value="3">Info</option>
+      <option value="4">Debug</option>
+      <option value="5">Verbose</option>
+</select> 
+</fieldset>
+<br>
+<input type="submit" id="submit" value="Save settings" title="Press to send, then wait a few seconds" onclick="showLoader()">
+</div>
+</form>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<script type="text/javascript">
+    var pollSettings = setInterval(updateData, 2000);
+    
+    function stopPollingSettings() {
+      clearInterval(pollSettings);
+    }
+    
+    function showLoader() {
+      console.log("showLoader()");
+      document.getElementById("loader").style.display = 'block';
+      document.getElementById("devicesDiv").style.display = 'none';
+      pollSettings = setInterval(updateData, 2000);
+    }
+    
+    function push1_OFF() {
+      console.log("push1_OFF()");
+      document.getElementById("mqtt1_server").disabled = true;
+      document.getElementById("mqtt1_port").disabled = true;
+      document.getElementById("push1_resp_time").disabled = true;
+    }
+      
+    function push1_ON() {
+      console.log("push1_ON()");
+      document.getElementById("mqtt1_server").disabled = false;
+      document.getElementById("mqtt1_port").disabled = false;
+      document.getElementById("push1_resp_time").disabled = false;
+    }
+    
+    function mqtt1_OFF() {
+      console.log("mqtt1_OFF()");
+      document.getElementById("push1_resp_time").disabled = false;
+      document.getElementById("mqtt1_username").disabled = true;
+      document.getElementById("mqtt1_password").disabled = true;
+      document.getElementById("mqtt1_roottopic").disabled = true;
+      document.getElementById("mqtt1_sub_topic").disabled = true;
+      document.getElementById("mqtt1_pub_topic").disabled = true;
+      document.getElementById("mqtt1_tls_dis").disabled = true;
+      document.getElementById("mqtt1_cert_file").disabled = true;
+      document.getElementById("mqtt1_cli_cert").disabled = true;
+      document.getElementById("mqtt1_key_file").disabled = true;
+      document.getElementById("mqtt1_tls_mu").disabled = true;
+      document.getElementById("mqtt1_tls_en").disabled = true;
+      document.getElementById("mqtt1_tls_dis").disabled = true;
+    }       
+    
+    function mqtt1_ON() {
+      console.log("mqtt1_ON()");
+      document.getElementById("mqtt1_server").disabled = false;
+      document.getElementById("mqtt1_port").disabled = false;      
+      document.getElementById("push1_resp_time").disabled = true;
+      document.getElementById("mqtt1_username").disabled = false;
+      document.getElementById("mqtt1_password").disabled = false;
+      document.getElementById("mqtt1_roottopic").disabled = false;
+      document.getElementById("mqtt1_sub_topic").disabled = false;
+      document.getElementById("mqtt1_pub_topic").disabled = false;
+      document.getElementById("mqtt1_tls_dis").disabled = false;
+      document.getElementById("mqtt1_tls_mu").disabled = false;
+      document.getElementById("mqtt1_tls_en").disabled = false;      
+    }
+
+    function mqttTls1_ON() {
+      console.log("mqttTls1_ON()");
+      document.getElementById("mqtt1_cert_file").disabled = false;
+      document.getElementById("mqtt1_cli_cert").disabled = true;
+      document.getElementById("mqtt1_key_file").disabled = true;      
+    }
+    
+    function mqttTls1_OFF() {
+      console.log("mqttTls1_OFF()");
+      document.getElementById("mqtt1_cert_file").disabled = true;
+      document.getElementById("mqtt1_cli_cert").disabled = true;
+      document.getElementById("mqtt1_key_file").disabled = true;      
+    }
+    
+    function mqttTls1_Mutual() {
+      console.log("mqttTls1_Mutual()");
+      document.getElementById("mqtt1_cert_file").disabled = false;
+      document.getElementById("mqtt1_cli_cert").disabled = false;      
+      document.getElementById("mqtt1_key_file").disabled = false;      
+    }    
+    
+    function push2_OFF() {
+      console.log("push2_OFF()");
+      document.getElementById("mqtt2_server").disabled = true;
+      document.getElementById("mqtt2_port").disabled = true;
+      document.getElementById("push2_resp_time").disabled = true;
+    }
+      
+    function push2_ON() {
+      console.log("push2_ON()");
+      document.getElementById("mqtt2_server").disabled = false;
+      document.getElementById("mqtt2_port").disabled = false;
+      document.getElementById("push2_resp_time").disabled = false;
+    }
+    
+    function mqtt2_OFF() {
+      console.log("mqtt2_OFF()");
+      document.getElementById("push2_resp_time").disabled = false;
+      document.getElementById("mqtt2_username").disabled = true;
+      document.getElementById("mqtt2_password").disabled = true;
+      document.getElementById("mqtt2_roottopic").disabled = true;
+      document.getElementById("mqtt2_sub_topic").disabled = true;
+      document.getElementById("mqtt2_pub_topic").disabled = true;
+      document.getElementById("mqtt2_tls_dis").disabled = true;
+      document.getElementById("mqtt2_cert_file").disabled = true;
+      document.getElementById("mqtt2_cli_cert").disabled = true;
+      document.getElementById("mqtt2_key_file").disabled = true;
+      document.getElementById("mqtt2_tls_mu").disabled = true;
+      document.getElementById("mqtt2_tls_en").disabled = true;
+      document.getElementById("mqtt2_tls_dis").disabled = true;
+    }       
+    
+    function mqtt2_ON() {
+      console.log("mqtt2_ON()");
+      document.getElementById("mqtt2_server").disabled = false;
+      document.getElementById("mqtt2_port").disabled = false;      
+      document.getElementById("push2_resp_time").disabled = true;
+      document.getElementById("mqtt2_username").disabled = false;
+      document.getElementById("mqtt2_password").disabled = false;
+      document.getElementById("mqtt2_roottopic").disabled = false;
+      document.getElementById("mqtt2_sub_topic").disabled = false;
+      document.getElementById("mqtt2_pub_topic").disabled = false;
+      document.getElementById("mqtt2_tls_dis").disabled = false;
+      document.getElementById("mqtt2_tls_mu").disabled = false;
+      document.getElementById("mqtt2_tls_en").disabled = false;      
+    }
+
+    function mqttTls2_ON() {
+      console.log("mqttTls2_ON()");
+      document.getElementById("mqtt2_cert_file").disabled = false;
+      document.getElementById("mqtt2_cli_cert").disabled = true;
+      document.getElementById("mqtt2_key_file").disabled = true;      
+    }
+    
+    function mqttTls2_OFF() {
+      console.log("mqttTls2_OFF()");
+      document.getElementById("mqtt2_cert_file").disabled = true;
+      document.getElementById("mqtt2_cli_cert").disabled = true;
+      document.getElementById("mqtt2_key_file").disabled = true;      
+    }
+    
+    function mqttTls2_Mutual() {
+      console.log("mqttTls2_Mutual()");
+      document.getElementById("mqtt2_cert_file").disabled = false;
+      document.getElementById("mqtt2_cli_cert").disabled = false;      
+      document.getElementById("mqtt2_key_file").disabled = false;      
+    }
+
+    function updateData() {
+        console.log("updateData()");
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+           console.log("updateData(): got Data:", this.responseText);
+          stopPollingSettings();
+          document.getElementById("loader").style.display = 'none';
+          document.getElementById("devicesDiv").style.display = 'block';
+          var measData = JSON.parse(this.responseText);
+          console.log(measData.settings);
+          document.getElementById("mqtt1_server").value = measData.settings.mqtt1_server;
+          document.getElementById("mqtt1_port").value = measData.settings.mqtt1_port;
+          document.getElementById("push1_resp_time").value = measData.settings.push1_resp_time;
+          document.getElementById("mqtt1_username").value = measData.settings.mqtt1_username;
+          document.getElementById("mqtt1_password").value = measData.settings.mqtt1_password;
+          document.getElementById("mqtt1_roottopic").value = measData.settings.mqtt1_roottopic;
+          document.getElementById("mqtt1_sub_topic").value = measData.settings.mqtt1_sub_topic;
+          document.getElementById("mqtt1_pub_topic").value = measData.settings.mqtt1_pub_topic;
+          document.getElementById("mqtt1_cert_file").value = measData.settings.mqtt1_cert_file;
+          document.getElementById("mqtt1_cli_cert").value = measData.settings.mqtt1_cli_cert;
+          document.getElementById("mqtt1_key_file").value = measData.settings.mqtt1_key_file;
+          document.getElementById("mqtt1_loglevel").value = measData.settings.mqtt1_loglevel; 
+          document.getElementById("mqtt2_server").value = measData.settings.mqtt2_server;
+          document.getElementById("mqtt2_port").value = measData.settings.mqtt2_port;
+          document.getElementById("push2_resp_time").value = measData.settings.push2_resp_time;
+          document.getElementById("mqtt2_username").value = measData.settings.mqtt2_username;
+          document.getElementById("mqtt2_password").value = measData.settings.mqtt2_password;
+          document.getElementById("mqtt2_roottopic").value = measData.settings.mqtt2_roottopic;
+          document.getElementById("mqtt2_sub_topic").value = measData.settings.mqtt2_sub_topic;
+          document.getElementById("mqtt2_pub_topic").value = measData.settings.mqtt2_pub_topic;
+          document.getElementById("mqtt2_cert_file").value = measData.settings.mqtt2_cert_file;
+          document.getElementById("mqtt2_cli_cert").value = measData.settings.mqtt2_cli_cert;
+          document.getElementById("mqtt2_key_file").value = measData.settings.mqtt2_key_file;
+          document.getElementById("mqtt2_loglevel").value = measData.settings.mqtt2_loglevel; 
+          
+          if (measData.settings.locked > 0)
+          {
+            document.getElementById("mqtt1_dis").disabled = true;
+            document.getElementById("submit").disabled = true;            
+          	pushOFF();
+          }
+          
+          // Set Push protocol radio button
+          console.log("push1_protocol:", measData.settings.push1_protocol);
+          var mqttEnabledIds1 = ["push1_disabled", "push1_protocol_mqtt", "push1_protocol_push"];
+          if (measData.settings.push1_protocol == 1) {
+            document.getElementById(mqttEnabledIds1[1]).checked = true;
+          	document.getElementById("push1_resp_time").disabled = true;            
+          }
+          else if (measData.settings.push1_protocol == 2) {//push
+          	document.getElementById(mqttEnabledIds1[2]).checked = true;
+          	document.getElementById("push1_resp_time").disabled = false;
+          	mqtt1_OFF(); 
+          }
+          else //no mqtt
+          {
+            document.getElementById(mqttEnabledIds1[0]).checked = true;
+            document.getElementById("push1_resp_time").disabled = false;          	
+          }
+          
+          // Set MQTT TLS radio button
+          console.log("mqtt TLS:",measData.settings.mqtt1_tls);
+          var mqttTlsIds1 = ["mqtt1_tls_dis", "mqtt1_tls_en", "mqtt1_tls_mu"];
+          if (measData.settings.mqtt1_tls == 1) {
+          	mqttTls1_ON();
+          	document.getElementById(mqttTlsIds1[1]).checked = true;
+          }
+          else if (measData.settings.mqtt1_tls == 2) {
+          	mqttTls1_Mutual();
+          	document.getElementById(mqttTlsIds1[2]).checked = true;
+          }
+          else {
+          	mqttTls1_OFF();
+          	document.getElementById(mqttTlsIds1[0]).checked = true;
+          }
+
+          //enable/disable mqtt section
+          if (measData.settings.push1_protocol == 0)
+          {
+          	push1_OFF();
+            mqtt1_OFF();
+          }
+          else if(measData.settings.push1_protocol == 2)
+            push1_ON();
+          else
+            mqtt1_ON();
+            
+          // Set Push protocol radio button
+          console.log("push2_protocol:", measData.settings.push2_protocol);
+          var mqttEnabledIds2 = ["push2_disabled", "push2_protocol_mqtt", "push2_protocol_push"];
+          if (measData.settings.push2_protocol == 1) {//mqtt
+            document.getElementById(mqttEnabledIds2[1]).checked = true;
+          	document.getElementById("push2_resp_time").disabled = true;            
+          }
+          else if (measData.settings.push2_protocol == 2) {//push
+          	document.getElementById(mqttEnabledIds2[2]).checked = true;
+          	document.getElementById("push2_resp_time").disabled = false;
+          	mqtt2_OFF();  
+          }
+          else //no mqtt
+          {
+          	document.getElementById(mqttEnabledIds2[0]).checked = true;
+            document.getElementById("push2_resp_time").disabled = false;
+          }
+          
+          // Set MQTT TLS radio button
+          console.log("mqtt TLS:",measData.settings.mqtt2_tls);
+          var mqttTlsIds2 = ["mqtt2_tls_dis", "mqtt2_tls_en", "mqtt2_tls_mu"];
+          if (measData.settings.mqtt2_tls == 1) {
+          	mqttTls2_ON();
+          	document.getElementById(mqttTlsIds2[1]).checked = true;
+          }
+          else if (measData.settings.mqtt2_tls == 2){
+          	mqttTls2_Mutual();
+          	document.getElementById(mqttTlsIds2[2]).checked = true;
+          }
+          else {
+          	mqttTls2_OFF();
+          	document.getElementById(mqttTlsIds2[0]).checked = true;
+          }
+         
+          //enable/disable mqtt section
+          if (measData.settings.push2_protocol == 0)
+          {
+          	push2_OFF();
+            mqtt2_OFF();
+          }
+          else if(measData.settings.push2_protocol == 2)
+            push2_ON();
+          else
+            mqtt2_ON();
+        }
+      };
+      xhttp.open("GET", "/get_command?command=get_settings&time=" + new Date().getTime(), true);//add timestamp to avoid browser caching
+      xhttp.send();
+    }
+    
+    setTimeout(updateData, 100); //updateData();
+</script>
+</body>
+</html>

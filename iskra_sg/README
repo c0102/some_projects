@@ -1,0 +1,106 @@
+Instalacija ESP32-IDF okolja
+Ubuntu 18 virtualka
+
+sudo apt-get install gcc git wget make libncurses-dev flex bison gperf python python-pip python-setuptools python-serial python-cryptography python-future python-pyparsing python-pyelftools
+
+cd
+mkdir esp
+cd ~/esp
+wget https://dl.espressif.com/dl/xtensa-esp32-elf-gcc8_2_0-esp32-2019r1-linux-amd64.tar.gz
+tar -xzf xtensa-esp32-elf-gcc8_2_0-esp32-2019r1-linux-amd64.tar.gz
+
+cd ~/esp
+git clone --recursive https://github.com/espressif/esp-idf.git
+
+update:
+cd esp-idf
+git pull
+git submodule update --init --recursive
+
+Ethernet board started from IDF ethernet example:
+cp -r $IDF_PATH/examples/ethernet/ethernet .
+
+MQTT
+mqtt client je prijavljen na topic:
+$root_topic/serial_number/cmd
+
+pošilja pa na:
+$root_topic/serial_number/publish
+
+Upgrade over MQTT:
+
+Generacija certifikata za https strežnik:
+
+openssl req -x509 -newkey rsa:2048 -keyout ca_key.pem -out ca_cert.pem -days 365
+
+Vsa polja lahko pustiš na default, le Common Name (e.g. server FQDN or YOUR name): je potrebno vpisati IP naslov ali hostname strežnika. 
+
+Start https strežnika:
+
+openssl s_server -WWW -key ca_key.pem -cert ca_cert.pem -port 8070
+
+Pridobivanje certifikata za upgrade komando:
+
+openssl s_client -showcerts -connect <hostname>: <port>
+
+Primer:
+openssl s_client -showcerts -connect 10.120.10.36:8070
+
+Upgrade komanda
+Na topic $root_topic/serial_number/cmd se pošlje komanda v sledečem formatu:
+{ 
+  "data": {
+        "cmd": "upgrade_app",
+        "uri": "https://10.120.10.36:8070/ethernet_board.bin",
+        "cert":"-----BEGIN CERTIFICATE-----
+MIIDjjCCAnagAwIBAgIJAPNY7KI9F8buMA0GCSqGSIb3DQEBCwUAMFwxCzAJBgNV
+BAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX
+aWRnaXRzIFB0eSBMdGQxFTATBgNVBAMMDDEwLjEyMC4xMC4zNjAeFw0xOTA2MTAw
+ODE3NDZaFw0yMDA2MDkwODE3NDZaMFwxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApT
+b21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQxFTAT
+BgNVBAMMDDEwLjEyMC4xMC4zNjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
+ggEBAJr7gnAUs9l2Z+apgFWLbElbSVhWU7ZAVpywZcW2HKGdgugHWf4yb89HvvO8
+dOi0zwzWkVbKbP1Vd7lnFPIHTUBy+NcxFvipeYFrSO/6Tyx/NeP+qQ5wqBp0B8fl
+LrpupI0tfLIro2mI6tiV9R/sOeSSXcD/oM5ne3NE3kn0S3Q72LvczyxZsTJJ0lmm
+T2qaOmH/jRAaChT8NOxDHEkSfRi5VYyHC7E4gfQWeiOhSsIjAqtDY1ZRDDstg0xT
+om9fKj7EeDtpKsnvag0znJbsfvJh8sqafZN2L/VzeEzrzkGtEOe2ykuKD61wDjDd
+oFuIM91IX2GEfkqTlmSR1oVDkz8CAwEAAaNTMFEwHQYDVR0OBBYEFGRUqDWn/dsz
++uxY1k30YFfR9UhOMB8GA1UdIwQYMBaAFGRUqDWn/dsz+uxY1k30YFfR9UhOMA8G
+A1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAC5gJgkE9OBgCSB7oPMR
+iCt/+WIJ6ZzA1d2ZuoGtcw6gPo2gcJzTOk0YbTfhMhr5CZP3YADMjkRsDPxPIBra
+9V2x14K3SaHuyn+7f28MNVqWI/020j/vt/g0xMxEBwjErVF3h6Lh7hGInUgWBGfV
+2RbI6uqRgufmoPpzxZCa3xB8M7p0B9L5433sGtil6+TbRDENMIZuMMlNGcdjlOSw
+sMQyOgM8ziuTLZnChqIjtI3J+O4tpQIsnFZulFblzzAQLqoD5nzzloEDOdfiyIUL
+HRQv7nPt91hCDLcYeJKV+50mpKsE5jxIYgeaLgtN91lmzEQVXcLrU+IDzgx91a3r
+K+I=
+-----END CERTIFICATE-----"
+  }
+}
+
+Set settings komanda
+Na topic $root_topic/cmd se pošlje komanda v sledečem formatu:
+{
+"data": {
+    "cmd": "set_settings",
+    "serial_number":"12345679",
+    "wifi_ssid":"ssid",
+    "wifi_password":"wifi_pass",
+    "description":"ESP32 Demo",
+    "location":"R&D",            
+    "time_sync_src":1,
+    "ntp_server1":"ntp1.arnes.si",                       
+    "mqtt_tls":0,
+    "mqtt_server":"10.120.4.160",
+    "mqtt_port":1883,            
+    "mqtt_topic":"devices",
+    "connection_mode": 2
+  }
+}
+
+Get settings:
+Na topic $root_topic/cmd se pošlje komanda v sledečem formatu:
+{
+"data": {
+	   "cmd": "get_settings"
+       }
+}

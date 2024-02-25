@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="light_style.css">
+<title>Iskra SG</title>
+</head>
+<body>
+<table id="t01">
+<tbody>
+<tr style="font-weight: bold; font-size: 200%; font-family: Verdana;text-align: center;">
+<td> <img src="iskra_logo1.jpg" alt="Iskra"></td>
+<td></td>
+<td>STATISTICS</td>
+</tr>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+<tr style="height: 10px;"><td></td></tr>
+<tr>
+<td valign="top">
+<div class="vertical-menu">
+  <a href="/index.html">SG Status</a>  
+  <a href="/settings_general.html">SG Settings</a>
+  <a href="/measurements.html">Measurements</a>
+  <a href="/counters.html">Energy Counters</a>
+  <a href="/graph.html">Load Profile</a>
+  <a href="/energy_logger.html">Energy Recorder</a>
+  <a href="/devices.html">External Devices</a>
+  <a href="/bicom.html">Bicom control</a>    
+<!-- <a href="/edit">SG File Browser</a> -->
+  <a href="/update.html">SG Upgrade</a>
+</div>
+</td>
+<td></td>
+<td valign="top">
+<table id="t02">
+<tr>
+<th>Wifi Statistics</th>
+<th>Value</th>
+</tr>
+<tr>
+<td class="t02Cell">CPU Usage</td>
+<td class="t02Cell"><span id="cpu_usage"></span> %</td>
+</tr>
+<tr>
+<td class="t02Cell">Heap Free</td>
+<td class="t02Cell"><span id="heap"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Heap Min</td>
+<td class="t02Cell"><span id="heap_min"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Uptime</td>
+<td class="t02Cell"><span id="uptime"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Power up counter</td>
+<td class="t02Cell"><span id="power_up_counter"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Upgrade counter</td>
+<td class="t02Cell"><span id="upgrade_counter"></span></td>
+</tr>
+<tr>
+<th>Packets Statistics</th>
+<th>Value</th>
+</tr>
+<tr>
+<td class="t02Cell">Modbus TCP RX</td>
+<td class="t02Cell"><span id="tcp_rx_packets"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Modbus TCP TX</td>
+<td class="t02Cell"><span id="tcp_tx_packets"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">WEB Requests</td>
+<td class="t02Cell"><span id="http_requests"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Modbus slave packets</td>
+<td class="t02Cell"><span id="modbus_slave"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">RS485 TX Packets</td>
+<td class="t02Cell"><span id="rs485_tx_packets"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">RS485 RX Packets</td>
+<td class="t02Cell"><span id="rs485_rx_packets"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Left IR TX Packets</td>
+<td class="t02Cell"><span id="left_ir_tx_packets"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Left IR RX Packets</td>
+<td class="t02Cell"><span id="left_ir_rx_packets"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Right IR TX Packets</td>
+<td class="t02Cell"><span id="right_ir_tx_packets"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Right IR RX Packets</td>
+<td class="t02Cell"><span id="right_ir_rx_packets"></span></td>
+</tr>
+<tr>
+<th>Push Statistics</th>
+<th>Value</th>
+</tr>
+<tr>
+<td class="t02Cell">MQTT Publish</td>
+<td class="t02Cell"><span id="mqtt_publish"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Push sent</td>
+<td class="t02Cell"><span id="push"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Push ack</td>
+<td class="t02Cell"><span id="push_ack"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Push errors</td>
+<td class="t02Cell"><span id="push_errors"></span></td>
+</tr>
+<tr>
+<th>Other</th>
+<th>Value</th>
+</tr>
+<tr>
+<td class="t02Cell">Errors</td>
+<td class="t02Cell"><span id="errors"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">EEPROM errors</td>
+<td class="t02Cell"><span id="eeprom_errors"></span></td>
+</tr>
+<tr>
+<td class="t02Cell">Time</td>
+<td class="t02Cell"><span id="local_time"></span></td>
+</tr>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<script type="text/javascript">
+      function updateData() {
+        console.log("updateData()");
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+           console.log("updateData(): got Data:", this.responseText);
+           var measData = JSON.parse(this.responseText);
+           document.getElementById("tcp_rx_packets").innerHTML = measData.tcp_rx_packets;
+           document.getElementById("tcp_tx_packets").innerHTML = measData.tcp_tx_packets;
+           document.getElementById("http_requests").innerHTML = measData.http_requests;   
+           document.getElementById("mqtt_publish").innerHTML = measData.mqtt_publish;
+           document.getElementById("push").innerHTML = measData.push;  
+           document.getElementById("push_ack").innerHTML = measData.push_ack;
+           document.getElementById("push_errors").innerHTML = measData.push_errors;
+           document.getElementById("modbus_slave").innerHTML = measData.modbus_slave;
+           document.getElementById("rs485_rx_packets").innerHTML = measData.rs485_rx_packets;
+           document.getElementById("rs485_tx_packets").innerHTML = measData.rs485_tx_packets;           
+           document.getElementById("left_ir_rx_packets").innerHTML = measData.left_ir_rx_packets;
+           document.getElementById("left_ir_tx_packets").innerHTML = measData.left_ir_tx_packets;
+           document.getElementById("right_ir_rx_packets").innerHTML = measData.right_ir_rx_packets;
+           document.getElementById("right_ir_tx_packets").innerHTML = measData.right_ir_tx_packets;                    
+           document.getElementById("errors").innerHTML = measData.errors;           
+           document.getElementById("local_time").innerHTML = measData.local_time;
+           document.getElementById("cpu_usage").innerHTML = measData.cpu_usage;   
+           document.getElementById("uptime").innerHTML = measData.uptime;
+           document.getElementById("heap").innerHTML = measData.heap;
+           document.getElementById("heap_min").innerHTML = measData.heap_min;
+           document.getElementById("power_up_counter").innerHTML = measData.power_up_counter;
+           document.getElementById("upgrade_counter").innerHTML = measData.upgrade_counter;
+           document.getElementById("eeprom_errors").innerHTML = measData.eeprom_errors;                               
+          }
+        };
+        xhttp.open("GET", "/get_command?command=get_statistics&time=" + new Date().getTime(), true);//add timestamp to avoid browser caching
+        xhttp.send();
+      }
+      
+      updateData();
+      window.setInterval(updateData, 60000); //update data every 60 seconds
+    </script>
+</body>
+</html>

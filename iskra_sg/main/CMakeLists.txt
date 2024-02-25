@@ -1,0 +1,31 @@
+set(COMPONENT_SRCS "adc.c"
+            "atecc608a.c"
+            "bicom.c"
+            "control_task.c"
+            "digital_input.c"
+            "eeprom.c"
+            "energy_meter.c"
+            "ethernet_init.c"
+            "graph.c"
+            "http_server.c"
+            "led_task.c"
+            "left_ir.c"
+            "main.c"
+            "modbus_client.c"
+            "modbus_slave.c"
+            "mqtt.c"
+            "ntp_client.c"
+            "nvs_storage.c"
+            "ota.c"
+            "push.c"
+            "rs485.c"
+            "tcp_client.c"
+            "tcp_server.c"
+            "udp.c"
+            "utils.c"
+            "wdt.c"
+            "wifi_init.c")
+set(COMPONENT_ADD_INCLUDEDIRS "." "./include/")
+set(COMPONENT_EMBED_FILES
+     "upload_script.html")
+register_component()

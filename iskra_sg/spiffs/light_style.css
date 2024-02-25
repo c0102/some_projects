@@ -1,0 +1,149 @@
+/* main table */
+#t01 {
+    /*width: 640px;*/
+    color: #009fa0;    
+    font-weight: bold;
+    font-family: Arial;
+    /*margin: 4px 2px;*/
+    /*padding: 15px;*/
+}
+
+/* table header */
+th {
+    color: white;
+    background-color: black;    
+    padding-left:5px;
+    padding-right: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;    
+}
+
+th:nth-child(even) {
+    text-align: center;
+}
+th:nth-child(odd) {
+    text-align: left;
+}
+
+/* table with results */
+#t02 {
+    /*width: 100%;*/    
+    font-weight: bold; 
+    font-family: Verdana;
+    border-collapse: collapse;
+    /*margin: 4px 2px;*/
+    /*padding: 15px;*/    
+}
+#t02 tr:nth-child(even) {
+    background-color: white; /*background-color: #cccccc;*/
+}
+#t02 tr:nth-child(odd) {
+    background-color: #e6e6e6;
+}
+#t02 td:nth-child(even) {
+    text-align: center;
+}
+#t02 td:nth-child(odd) {
+    text-align: left;
+}
+
+.t02Cell {
+ padding-left:5px;
+ padding-right: 5px;
+ padding-top: 3px;
+ padding-bottom: 2px;
+}
+
+/* bicom buttons */
+.button {    
+    border: none;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+/* bicom buttons */
+.button1 {background-color: #4CAF50; width: 170px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);border-radius: 8px;} /* Green */ 
+.button2 {background-color: #f44336; width: 170px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);border-radius: 8px;} /* Red */
+.button3 {background-color: #008CBA; width: 170px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);border-radius: 8px;} /* Blue */
+.button4 {background-color: #089692; width: 170; border: none; border-radius: 15px; box-shadow: 0 9px #999; position: relative; left: 150px;} /* iskra green, scan rs485 */
+
+/* vertical menu */
+.vertical-menu {
+    width: 180px; /* Set a width if you like */
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.vertical-menu a {
+    background-color: #eee; /* Grey background color */
+    color: black; /* Black text color */
+    display: block; /* Make the links appear below each other */
+    padding: 10px; /* Add some padding */
+    text-decoration: none; /* Remove underline from links */
+    border-bottom: 1px solid #555;
+}
+
+.vertical-menu a:hover {
+    background-color: #ccc; /* Dark grey background on mouse-over */
+}
+
+.vertical-menu a.active {
+    background-color: #089692; /* #009fa0;*/ /* Add a green color to the "active/current" link */
+    color: white;
+}
+
+/* horizontal menu */
+.topnav {
+  overflow: hidden;
+  background-color: #eee;
+}
+
+.topnav a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  border-left: 1px solid #555;
+}
+
+.topnav a:hover {
+  background-color: #ccc;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #089692;
+  color: white;
+}
+
+/* Loader */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Center the loader */
+.loader {
+  position: absolute;
+  left: 20%;
+  top: 25%;
+  z-index: 1;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #089692;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+/* graph part */

@@ -1,0 +1,434 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="light_style.css">
+<title>Iskra SG</title>
+</head>    
+<body>
+<iframe name="hiddenFrame" style="width:0;height:0;border:0; border:none; display:none;"></iframe>     
+<div id="loader" class="loader" style="display:block" ></div>
+<table id="t01">
+<tbody>
+<tr style="font-weight: bold; font-size: 200%; font-family: Verdana;text-align: center;">
+<td> <img src="iskra_logo1.jpg" alt="Iskra"></td>
+<td></td>
+<td>SG Settings</td>
+</tr>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+      <tr style="height: 10px;"><td></td></tr>
+<tr>
+<td valign="top">
+<div class="vertical-menu">
+  <a href="/index.html">SG Status</a>  
+  <a href="/settings_general.html" class="active">SG Settings</a>
+  <a href="/measurements.html">Measurements</a>
+  <a href="/counters.html">Energy Counters</a>
+  <a href="/graph.html">Load Profile</a>
+  <a href="/energy_logger.html">Energy Recorder</a>
+  <a href="/devices.html">External Devices</a>
+  <a href="/bicom.html">Bicom control</a>    
+<!-- <a href="/edit">SG File Browser</a> -->
+  <a href="/update.html">SG Upgrade</a>
+</div>
+</td>
+<td></td>
+<td valign="top">
+<table id="t02">
+<tr>
+  <div class="topnav">
+    <a class="active" href="/settings_general.html">General</a>
+    <a href="settings_communication.html">Communication</a>
+    <a href="settings_IR.html">IR Devices</a>
+    <a href="settings_RS485.html">RS485 Devices</a>
+  </div>
+    <h2></h2>          
+    <form action="/get_command" target="hiddenFrame">
+    <div style="display:none;" id="devicesDiv" >
+     <fieldset>
+     <legend>General Settings</legend>              
+      <input type="hidden" name="command" id="command" value ="set_settings">
+      <br>Description:                
+      <input type="text" name="description" id="description" size="41" maxlength="40">      
+      <br>           
+      Location:                
+      <input type="text" name="location" id="location" size="41" maxlength="40">      
+      <br>
+      <br>Connection Mode:
+      <br>
+      <input id="wifi_mode" type="radio" name="connection_mode" onclick="wifiShow();" value="2"> WiFi <br>
+      <input id="eth_mode" type="radio" name="connection_mode" onclick="wifiHide();" value="1"> Ethernet <br>
+      <br>      
+      WiFi SSID:                
+      <input type="text" name="wifi_ssid" id="wifi_ssid" size="20" maxlength="20">      
+      <br>
+      WiFi Password:                
+      <input type="password" name="wifi_password" id="wifi_password" size="20" maxlength="20">      
+      <br><br>
+      <input id="dhcp" type="radio" name="static_ip_en" onclick="staticIPHide();" value="0"> Obtain an IP address automatically (DHCP)<br>
+      <input id="static_ip" type="radio" name="static_ip_en" onclick="staticIPShow();" value="1"> Use following IP address <br>            
+      <br>IP: <input type="text" name="ip" id="ip" minlength="7" maxlength="15" size="15" pattern="^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$" title="Wrong IP">
+      <br>Gateway: <input type="text" name="gateway" id="gateway" minlength="7" maxlength="15" size="15" pattern="^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$" title="Wrong IP">
+      <br>Netmask: <input type="text" name="netmask" id="netmask" minlength="7" maxlength="15" size="15" pattern="^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$" title="Wrong IP">
+      <br>DNS1: <input type="text" name="dns1" id="dns1" minlength="7" maxlength="15" size="15" pattern="^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$" title="Wrong IP">
+      <br>DNS2: <input type="text" name="dns2" id="dns2" minlength="7" maxlength="15" size="15" pattern="^((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$" title="Wrong IP">
+      <br><br>
+      Use WiFi AP as a fallback connection:
+      <br>
+      <input id="wifi_ap_off" type="radio" name="wifi_ap_enabled" value="0"> Disabled <br>
+      <input id="wifi_ap_on" type="radio" name="wifi_ap_enabled" value="1"> Enabled <br> 
+      <br>                          
+      TCP Modbus:
+      <br>
+      <input id="tcp_off" type="radio" name="tcp_modbus_en" value="0"> Disabled <br>
+      <input id="tcp_on" type="radio" name="tcp_modbus_en" value="1"> Enabled <br>
+      <br>
+      UDP Discovery:
+      <br>
+      <input id="udp_off" type="radio" name="udp_enabled" value="0"> Disabled <br>
+      <input id="udp_on" type="radio" name="udp_enabled" value="1"> Enabled <br>
+      <br>
+      Pulse counter:
+      <br>
+      <input id="pulse_off" type="radio" name="pulse_cnt_en" value="0"> Disabled <br>
+      <input id="pulse_on" type="radio" name="pulse_cnt_en" value="1"> Enabled <br> 
+      <br>
+      Temperature input:
+      <br>
+      <input id="adc_off" type="radio" name="adc_enabled" value="0"> Disabled <br>
+      <input id="adc_on" type="radio" name="adc_enabled" value="1"> Enabled <br> 
+      <br>
+      Local Modbus Address:                
+      <input type="text" name="sg_modbus_addr" id="sg_modbus_addr" size="4" maxlength="3">
+      <br>Local TCP Modbus Port:                
+      <input type="text" name="tcp_port" id="tcp_port" size="6" maxlength="5">
+      <br>Local Http Port:
+      <input type="text" name="http_port" id="http_port" size="6" maxlength="5">
+      <br>
+      <br>Energy Recorder 1 Counter:
+      <input type="text" name="energy_log_1" id="energy_log_1" size="4" maxlength="1">
+      <div style="display:none;" id="eeprom_size_64" >
+      Energy Recorder 2 Counter:
+      <input type="text" name="energy_log_2" id="energy_log_2" size="4" maxlength="1">
+      <br>Energy Recorder 3 Counter:
+      <input type="text" name="energy_log_3" id="energy_log_3" size="4" maxlength="1">
+      <br>Energy Recorder 4 Counter:
+      <input type="text" name="energy_log_4" id="energy_log_4" size="4" maxlength="1">
+      </div>
+      <br>     
+      </fieldset>
+      <br>
+      <fieldset>
+      <legend>Time Settings</legend>
+      NTP Synchronization:
+      <br>
+      <input id="ntp_off" type="radio" name="time_sync_src";" value="0"> Disabled <br>
+      <input id="ntp_on" type="radio" name="time_sync_src";" value="1"> Enabled <br>      
+      <br>Timezone:
+      <br>         
+<!--      <input type="text" name="timezone" id="timezone" size="5" maxlength="3"> --> 
+      <select name="timezone" id="timezone">
+      <option value="0">(GMT) Greenwich Mean Time (London)</option>
+      <option value="60">(+1:00) European Central Time (Brussels)</option>
+      <option value="120">(+2:00) Eastern European Time (Istanbul)</option>
+      <option value="180">(+3:00) Moscow, Kuwait, Eastern African</option>
+      <option value="210">(+3:30) Middle East Time (Tehran)</option>
+      <option value="240">(+4:00) Near East Time (Abu Dhabi)</option>
+      <option value="270">(+4:30) Kabul</option>
+      <option value="300">(+5:00) Pakistan Lahore Time (Islamabad)</option>
+      <option value="330">(+5:30) India Standard Time (New Delhi)</option>
+      <option value="345">(+5:45) Kathmandu</option>
+      <option value="360">(+6:00) Bangladesh Standard Time (Dhaka)</option>
+      <option value="390">(+6:30) Yangon (Rangoon)</option>
+      <option value="420">(+7:00) Vietnam Standard Time (Bangkok)</option>
+      <option value="480">(+8:00) China Taiwan Time (Hong Kong)</option>
+      <option value="540">(+9:00) Japan Standard Time (Tokyo)</option>
+      <option value="570">(+9:30) Australia Central T. (Adelaide)</option>
+      <option value="600">(+10:00) Australia Eastern Time (Sydney)</option>
+      <option value="660">(+11:00) Solomon Time (New Caledonia)</option>
+      <option value="720">(+12:00) New Zealand Time (Fiji)</option>
+      <option value="-660">(-11:00) Midway Islands Time (Samoa)</option>
+      <option value="-600">(-10:00) Hawaii Standard Time</option>
+      <option value="-540">(-9:00) Alaska Standard Time</option>
+      <option value="-480">(-8:00) Pacific Standard Time</option>
+      <option value="-420">(-7:00) Mountain Standard Time (Arizona)</option>
+      <option value="-360">(-6:00) Central Standard T. (Mexico C.)</option>
+      <option value="-300">(-5:00) Eastern Standard Time (Indiana)</option>
+      <option value="-270">(-4:30) Atlantic Standard Time (Caracas)</option>
+      <option value="-240">(-4:00) Atlantic Standard Time (La Paz)</option>
+      <option value="-210">(-3:30) Canada Newfoundland Time</option>
+      <option value="-180">(-3:00) Brazil Eastern T. (Buenos Aires)</option>
+      <option value="-120">(-2:00) Mid-Atlantic Time</option>
+      <option value="-60">(-1:00) Central African Time (Azores)</option>
+	</select>
+	<br> 
+	<br>NTP Servers:       
+      <br>         
+      <input type="text" name="ntp_server1" id="ntp_server1" size="40" maxlength="39">
+      <br>         
+      <input type="text" name="ntp_server2" id="ntp_server2" size="40" maxlength="39">
+      <br>         
+      <input type="text" name="ntp_server3" id="ntp_server3" size="40" maxlength="39">
+      <br>                                                        
+      </fieldset>
+      <br>
+      <div style="display:none;" id="demoBox" >
+      <fieldset>
+      <legend>Demo Box Settings</legend>                  
+      <br>                                         
+      Min Temperature Limit:       
+      <br>         
+      <input type="text" name="temp_min_limit" id="temp_min_limit" size="3" maxlength="3">
+      <br>
+      Max Temperature Limit:       
+      <br>         
+      <input type="text" name="temp_max_limit" id="temp_max_limit" size="3" maxlength="3">
+      <br>                                                         
+      </fieldset>
+      <br>
+      </div>
+      <fieldset>
+      <legend>Debug settings</legend>                                                                
+      <input id="debug_console_OFF" type="radio" name="debug_console" value="0"> Internal port <br>
+      <input id="debug_console_ON" type="radio" name="debug_console" value="1"> RS485 port <br>
+      <br>Debug 1 value:
+      <input type="text" name="log_disable1" id="log_disable1" size="6" maxlength="5">
+      <br>Debug 2 value:
+      <input type="text" name="log_disable2" id="log_disable2" size="6" maxlength="5">
+      <br><br>
+      Debug task:
+      <br>
+      <input id="cntrl_task_off" type="radio" name="cntrl_task_en" value="0"> Disabled <br>
+      <input id="cntrl_task_on" type="radio" name="cntrl_task_en" value="1"> Enabled <br>                                                              
+      </fieldset>
+      <br>
+      <input type="submit" id="submit" value="Save settings" title="Press to send, then wait a few seconds" onclick="showLoader()" >
+     </div>                
+    </form>    
+    </tr>
+    </table>
+</td>
+</tbody>
+</table>       
+       
+  <script type="text/javascript">
+    var pollSettings = setInterval(updateData, 2000);
+    
+    function stopPollingSettings() {
+      clearInterval(pollSettings);
+    } 
+    
+    function showLoader() {      
+      console.log("showLoader()");        
+      document.getElementById("loader").style.display = 'block';
+      document.getElementById("devicesDiv").style.display = 'none';
+      pollSettings = setInterval(updateData, 2000);              
+    }
+    
+    function wifiShow()
+    {
+        //staticIPHide();
+    	document.getElementById("wifi_ssid").disabled = false;
+        document.getElementById("wifi_password").disabled = false;
+    }
+    
+    function wifiHide()
+    {
+        //if(document.getElementById("dhcp").checked)
+          //staticIPHide();
+        //else
+          //staticIPShow();
+    	document.getElementById("wifi_ssid").disabled = true;
+        document.getElementById("wifi_password").disabled = true;
+    }             
+    
+    function staticIPShow()
+    {
+    	document.getElementById("ip").disabled = false;
+        document.getElementById("netmask").disabled = false;
+        document.getElementById("gateway").disabled = false;
+        document.getElementById("dns1").disabled = false;
+        document.getElementById("dns2").disabled = false;
+    }
+    function staticIPHide()
+    {
+    	document.getElementById("ip").disabled = true;
+        document.getElementById("netmask").disabled = true;
+        document.getElementById("gateway").disabled = true;
+        document.getElementById("dns1").disabled = true;
+        document.getElementById("dns2").disabled = true;
+    }
+    
+    function updateData() {
+        console.log("updateData()");
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+           console.log("updateData(): got Data:", this.responseText);
+           stopPollingSettings(); 
+           document.getElementById("loader").style.display = 'none';
+           document.getElementById("devicesDiv").style.display = 'block'; 
+           var measData = JSON.parse(this.responseText);           
+           document.getElementById("wifi_ssid").value = measData.settings.wifi_ssid;
+           document.getElementById("wifi_password").value = measData.settings.wifi_password;
+           document.getElementById("description").value = measData.settings.description;
+           document.getElementById("location").value = measData.settings.location;
+           document.getElementById("ntp_server1").value = measData.settings.ntp_server1;
+           document.getElementById("ntp_server2").value = measData.settings.ntp_server2;
+           document.getElementById("ntp_server3").value = measData.settings.ntp_server3;
+           document.getElementById("timezone").value = measData.settings.timezone;           
+           document.getElementById("temp_min_limit").value = measData.settings.temp_min_limit;
+           document.getElementById("temp_max_limit").value = measData.settings.temp_max_limit;
+           document.getElementById("sg_modbus_addr").value = measData.settings.sg_modbus_addr;
+           document.getElementById("tcp_port").value = measData.settings.tcp_port;
+           document.getElementById("http_port").value = measData.settings.http_port;
+           document.getElementById("log_disable1").value = measData.settings.log_disable1;
+           document.getElementById("log_disable2").value = measData.settings.log_disable2; 
+           document.getElementById("energy_log_1").value = measData.settings.energy_log_1;
+           document.getElementById("energy_log_2").value = measData.settings.energy_log_2;
+           document.getElementById("energy_log_3").value = measData.settings.energy_log_3;
+           document.getElementById("energy_log_4").value = measData.settings.energy_log_4;
+           document.getElementById("ip").value = measData.settings.ip;
+           document.getElementById("gateway").value = measData.settings.gateway;
+           document.getElementById("netmask").value = measData.settings.netmask;
+           document.getElementById("dns1").value = measData.settings.dns1;
+           document.getElementById("dns2").value = measData.settings.dns2;
+           
+           if (measData.settings.eeprom_size == 64)
+           		document.getElementById("eeprom_size_64").style.display = 'block';
+           
+           if (measData.settings.locked > 0)
+           {
+            document.getElementById("submit").disabled = true;            
+           }
+          
+           if(measData.settings.temp_min_limit)
+           	document.getElementById("demoBox").style.display = 'block';
+           else
+           	document.getElementById("demoBox").style.display = 'none';
+          
+           //Set connection mode radio button
+           console.log("connection mode: ", measData.settings.connection_mode);
+           if (measData.settings.connection_mode == 1)
+           {
+             wifiHide();
+             //document.getElementById(["wifi_mode", "eth_mode"][measData.settings.connection_mode]).checked = true;
+             document.getElementById("eth_mode").checked = true;
+             document.getElementById("wifi_mode").checked = false;
+           }
+          else if (measData.settings.connection_mode == 2)
+          {
+            wifiShow();
+            document.getElementById("eth_mode").checked = false;
+            document.getElementById("wifi_mode").checked = true;
+          }
+          //Set DHCP/Static IP radio button
+           console.log("Static IP: ", measData.settings.static_ip_en);
+           if (measData.settings.static_ip_en == 1)
+           {
+             staticIPShow();
+             document.getElementById("static_ip").checked = true;
+             document.getElementById("dhcp").checked = false;
+           }
+           else
+           {
+             staticIPHide();
+             document.getElementById("static_ip").checked = false;
+             document.getElementById("dhcp").checked = true;
+           }           
+          if (measData.settings.tcp_modbus_en == 1)
+          {
+            document.getElementById("tcp_off").checked = false;
+            document.getElementById("tcp_on").checked = true;
+          }
+          else
+          {
+            document.getElementById("tcp_off").checked = true;
+            document.getElementById("tcp_on").checked = false;
+          }
+          if (measData.settings.udp_enabled == 1)
+          {
+            document.getElementById("udp_off").checked = false;
+            document.getElementById("udp_on").checked = true;
+          }
+          else
+          {
+            document.getElementById("udp_off").checked = true;
+            document.getElementById("udp_on").checked = false;
+          }
+          if (measData.settings.pulse_cnt_en == 1)
+          {
+            document.getElementById("pulse_off").checked = false;
+            document.getElementById("pulse_on").checked = true;
+          }
+          else
+          {
+            document.getElementById("pulse_off").checked = true;
+            document.getElementById("pulse_on").checked = false;
+          }
+          if (measData.settings.adc_enabled == 1)
+          {
+            document.getElementById("adc_off").checked = false;
+            document.getElementById("adc_on").checked = true;
+          }
+          else
+          {
+            document.getElementById("adc_off").checked = true;
+            document.getElementById("adc_on").checked = false;
+          }
+          if (measData.settings.time_sync_src == 1)
+          {
+            document.getElementById("ntp_off").checked = false;
+            document.getElementById("ntp_on").checked = true;
+          }
+          else
+          {
+            document.getElementById("ntp_off").checked = true;
+            document.getElementById("ntp_on").checked = false;
+          }          
+          if (measData.settings.debug_console == 1)
+          {
+            document.getElementById("debug_console_OFF").checked = false;
+            document.getElementById("debug_console_ON").checked = true;
+          }
+          else
+          {
+            document.getElementById("debug_console_OFF").checked = true;
+            document.getElementById("debug_console_ON").checked = false;
+          }
+          if (measData.settings.cntrl_task_en == 1)
+          {
+            document.getElementById("cntrl_task_off").checked = false;
+            document.getElementById("cntrl_task_on").checked = true;
+          }
+          else
+          {
+            document.getElementById("cntrl_task_off").checked = true;
+            document.getElementById("cntrl_task_on").checked = false;
+          } 
+          if(measData.settings.wifi_ap_enabled == 1)
+          {
+            document.getElementById("wifi_ap_off").checked = false;
+            document.getElementById("wifi_ap_on").checked = true;
+          }
+          else
+          {
+            document.getElementById("wifi_ap_off").checked = true;
+            document.getElementById("wifi_ap_on").checked = false;
+          }
+    		          
+        }
+      };
+      //xhttp.open("GET", "/settings?_=" + new Date().getTime(), true);//add timestamp to avoid browser caching
+      xhttp.open("GET", "/get_command?command=get_settings&time=" + new Date().getTime(), true);//add timestamp to avoid browser caching
+      xhttp.send();                        
+    }            
+      
+    setTimeout(updateData, 100); //updateData();      
+    </script>           
+  </body>
+
+</html>
